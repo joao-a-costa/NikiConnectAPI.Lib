@@ -1,0 +1,6 @@
+/.vs
+/NikiConnectAPI.Lib/bin
+/NikiConnectAPI.Lib/obj
+/NikiConnectAPI.Test/bin
+/NikiConnectAPI.Test/obj
+/packages
