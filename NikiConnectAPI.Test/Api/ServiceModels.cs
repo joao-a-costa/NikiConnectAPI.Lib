@@ -53,9 +53,65 @@ namespace NikiConnectAPI.Test
         }
 
         [TestMethod()]
+        public async Task GetCities()
+        {
+            var success = await FetchDataAsync<Lib.Models.City>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetStates()
+        {
+            var success = await FetchDataAsync<Lib.Models.State>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
         public async Task GetCurrencies()
         {
             var success = await FetchDataAsync<Lib.Models.Currency>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetPaymentMethods()
+        {
+            var success = await FetchDataAsync<Lib.Models.PaymentMethod>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetPaymentTerms()
+        {
+            var success = await FetchDataAsync<Lib.Models.PaymentTerm>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetTaxRegions()
+        {
+            var success = await FetchDataAsync<Lib.Models.TaxRegion>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetPricelines()
+        {
+            var success = await FetchDataAsync<Lib.Models.Priceline>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetTenantUsers()
+        {
+            var success = await FetchDataAsync<Lib.Models.TenantUser>();
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public async Task GetCompanies()
+        {
+            var success = await FetchDataAsync<Lib.Models.Company>();
             Assert.IsTrue(success);
         }
 
