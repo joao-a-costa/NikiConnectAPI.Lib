@@ -4,13 +4,17 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using NikiConnectAPI.Lib.Models;
 using NikiConnectAPI.Lib.Models.Data;
+using System.Data;
 
 namespace NikiConnectAPI.Lib.Api
 {
     public static class DataFetcher
     {
-        public static async Task<DataResponse<T>> Get<T>(string url, Header header, long limit = 9223372036854775807) where T : class
+        public static async Task<DataResponse<T>> Get<T>(string url, Header header,
+            long limit = 9223372036854775807) where T : class
         {
+            Exception exception = null;
+
             try
             {
                 var headers = typeof(Header)
@@ -42,10 +46,13 @@ namespace NikiConnectAPI.Lib.Api
             }
             catch(Exception ex)
             {
-                var teste = string.Empty;
+                exception = ex;
             }
 
-            return null;
+            return new DataResponse<T>
+            {
+                Exception = exception
+            };
         }
     }
 }

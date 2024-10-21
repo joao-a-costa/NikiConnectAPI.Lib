@@ -2,6 +2,9 @@
 {
     internal class App
     {
+        public const string _SlugCountries = "/countries";
+        public const string _SlugCurrencies = "/currencies";
+
         public const string _Url = "https://api.niki24.xyz/";
         public const string _UrlVersion = "v1/";
         public const string _UrlToken = "oauth/token";
