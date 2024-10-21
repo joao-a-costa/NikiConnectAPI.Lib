@@ -7,8 +7,8 @@
         public const string _UrlToken = "oauth/token";
         public const string _UrlRemoteApiClient = "remote-api-client/models";
         public const string _UrlUserAgent = "PostmanRuntime/7.42.0";
-        public const string _ClientID = "9";
-        public const string _ClientSecreat = "XM6OfOkOH5JVTJ9wrlrxLpzmZlA1lmIxvVdAlggm";
+        public const string _ClientID = "YOURCLIENDID";
+        public const string _ClientSecret = "YOURCLIENTSECRET";
 
         public const string _XVersion = "v1";
         public const string _XTenant = "smartdigit";
