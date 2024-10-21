@@ -16,14 +16,14 @@ namespace NikiConnectAPI.Lib.Api
         /// <param name="clientID">The client ID</param>
         /// <param name="clientSecret">The client secret</param>
         /// <param name="userAgent">The User-Agent header</param>
-        /// <returns>The token</returns>
-        public static async Task<Tuple<Token, TokenError>> CreateToken(string url, string userAgent, string clientID, string clientSecret)
+        /// <returns>The token and error</returns>
+        public static async Task<TokenResponse> CreateToken(string url, string userAgent, string clientID, string clientSecret)
         {
             var authorization = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientID}:{clientSecret}"));
 
             Dictionary<string, string> headers = new Dictionary<string, string>
             {
-                { "Authorization", $"Basic {authorization}" }
+                { App._AuthorizationType, $"{App._AuthorizationTypeValue} {authorization}" }
             };
 
             if (url.EndsWith("/"))
@@ -32,15 +32,19 @@ namespace NikiConnectAPI.Lib.Api
             var res = await HttpUtility.EXECUTEAsync<Token, TokenError>(
                 url,
                 "",
-                "POST",
-                "grant_type=api-client-credentials",
+                App._ApiPost,
+                App._GrantTypeClientCredentials,
                 headers,
                 userAgent,
-                "application/x-www-form-urlencoded",
-                999999999
+                App._ContentType,
+                App._ApiTimeout
             );
 
-            return Tuple.Create(res.Item2, res.Item3); // Return token and error
+            return new TokenResponse
+            {
+                Token = res.Item2,
+                TokenError = res.Item3
+            };
         }
     }
 }

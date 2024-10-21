@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace NikiConnectAPI.Lib.Models
+namespace NikiConnectAPI.Lib.Models.Data
 {
     public class DataResult<T> where T : class
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NikiConnectAPI.Lib.Models
+namespace NikiConnectAPI.Lib.Models.Data
 {
     public class DataResultError
     {

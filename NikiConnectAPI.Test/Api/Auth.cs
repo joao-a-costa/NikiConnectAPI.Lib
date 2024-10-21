@@ -9,9 +9,9 @@ namespace NikiConnectAPI.Test
         [TestMethod()]
         public async Task CreateTokenAuth()
         {
-            var res = await Lib.Api.Auth.CreateToken($"{App._Url}{App._UrlVersion}{App._UrlToken}", App._UrlUserAgent, App._ClientID, App._ClientSecreat);
+            var res = await Lib.Api.Auth.CreateToken($"{App._Url}{App._UrlVersion}{App._UrlToken}", App._UrlUserAgent, App._ClientID, App._ClientSecret);
 
-            Assert.IsTrue(!string.IsNullOrEmpty(res?.Item1?.AccessToken));
+            Assert.IsTrue(!string.IsNullOrEmpty(res?.Token?.AccessToken));
         }
     }
 }
