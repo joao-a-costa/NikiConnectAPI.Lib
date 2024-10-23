@@ -1,2 +1,1 @@
 # NikiConnectAPI.Lib
-NikiConnectAPI.Lib
