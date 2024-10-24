@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using NikiConnectAPI.Lib.Attributes;
 using NikiConnectAPI.Lib.Helpers;
 using NikiConnectAPI.Lib.Interfaces;
 
@@ -33,6 +34,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         [JsonProperty("matchcode")]
         public string Matchcode { get; set; }
 
+        [Editable(true)]
         [JsonProperty("street_1")]
         public string Street1 { get; set; }
 
@@ -81,8 +83,8 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         [JsonProperty("deleted_by")]
         public object DeletedBy { get; set; }
 
-        [JsonProperty("module_comments")]
-        public string ModuleComments { get; set; }
+        //[JsonProperty("module_comments")]
+        //public string ModuleComments { get; set; }
 
         [JsonProperty("entity_type_id")]
         public int EntityTypeId { get; set; }

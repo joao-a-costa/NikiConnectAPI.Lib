@@ -43,7 +43,7 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         public int? DeletedBy { get; set; }
         [JsonProperty("module_comments")]
         public string ModuleComments { get; set; }
-        [Editable(true)]
+        //[Editable(true)]
         [JsonProperty("external_id")]
         public string ExternalId { get; set; }
     }

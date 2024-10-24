@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NikiConnectAPI.Lib.Helpers;
 using NikiConnectAPI.Lib.Models.SyncModels;
-using NikiConnectAPI.Test.Utilities;
 
 namespace NikiConnectAPI.Test.Api.SyncModels
 {
@@ -21,6 +18,24 @@ namespace NikiConnectAPI.Test.Api.SyncModels
                 Header = CreateHeader(AccessToken);
 
             Assert.IsTrue(Header != null);
+        }
+
+        [TestMethod()]
+        public async Task Address()
+        {
+            await PostEntity<Address>();
+        }
+
+        [TestMethod()]
+        public async Task Bank()
+        {
+            await PostEntity<Bank>();
+        }
+
+        [TestMethod()]
+        public async Task Contact()
+        {
+            await PostEntity<Contact>();
         }
 
         #endregion

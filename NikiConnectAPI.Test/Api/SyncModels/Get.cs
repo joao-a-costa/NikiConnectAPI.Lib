@@ -34,6 +34,13 @@ namespace NikiConnectAPI.Test.Api.SyncModels
             Assert.IsTrue(res?.DataResult != null);
         }
 
+        [TestMethod()]
+        public async Task GetContacts()
+        {
+            var res = await GetDataAsync<Contact>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
         #endregion
     }
 }

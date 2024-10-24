@@ -185,9 +185,15 @@ namespace NikiConnectAPI.Test.Api
                                 }
                             }
                         }
+                        else
+                            Assert.Fail(resGet?.Error?.Message);
                     }
+                    else
+                        Assert.Fail(res?.Error?.Message);
                 }
             }
+            else
+                Assert.Fail(resGet?.Error?.Message);
 
             // Final assertion to ensure the operation was successful
             Assert.IsTrue(resOperation, "No changes were detected in the property values.");
