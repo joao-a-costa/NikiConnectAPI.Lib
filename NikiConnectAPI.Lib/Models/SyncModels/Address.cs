@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using NikiConnectAPI.Lib.Helpers;
+using NikiConnectAPI.Lib.Attributes;
 using NikiConnectAPI.Lib.Interfaces;
 
 namespace NikiConnectAPI.Lib.Models.SyncModels
@@ -33,6 +32,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         [JsonProperty("matchcode")]
         public string Matchcode { get; set; }
 
+        [Editable(true)]
         [JsonProperty("street_1")]
         public string Street1 { get; set; }
 

@@ -11,5 +11,6 @@
         public const string _ApiGet = "GET";
         public const string _ApiPost = "POST";
         public const int _ApiTimeout = 999999999;
+        public const string _DateTimeFormat = "yyyy-MM-ddTHH:mm:sszzz";
     }
 }

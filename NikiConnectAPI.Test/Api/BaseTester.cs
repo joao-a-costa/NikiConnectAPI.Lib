@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -91,6 +92,9 @@ namespace NikiConnectAPI.Test.Api
             var res = await Lib.Api.DataFetcher.Get<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientModels}",
                 Header,
                 app.Limit);
+
+            if (res?.Exception != null)
+                Assert.Fail(res.Exception.Message);
             return res;
         }
 
@@ -188,8 +192,13 @@ namespace NikiConnectAPI.Test.Api
                                 Assert.IsTrue(resOperation, "Item was not found after update.");
                         }
                     }
+                    else if (res?.Error != null)
+                        Assert.Fail(res.Error.Message);
                 }
             }
+            else if (resGet?.Exception != null)
+                Assert.Fail(resGet.Exception.Message);
+
 
             // Final assertion to ensure the operation was successful
             Assert.IsTrue(resOperation, "No changes were detected in the property values.");
@@ -270,8 +279,12 @@ namespace NikiConnectAPI.Test.Api
                                 Assert.IsTrue(resOperation, "Item was not found after insert.");
                         }
                     }
+                    else if (res?.Error != null)
+                        Assert.Fail(res.Error.Message);
                 }
             }
+            else if (resGet?.Exception != null)
+                Assert.Fail(resGet.Exception.Message);
 
             // Final assertion to ensure the operation was successful
             Assert.IsTrue(resOperation, "No changes were detected in the property values.");

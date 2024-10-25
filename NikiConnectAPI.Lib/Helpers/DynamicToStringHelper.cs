@@ -60,7 +60,14 @@ namespace NikiConnectAPI.Lib.Helpers
 
                 // Add key-value pair to the dictionary
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
-                    dictionary.Add($"list[{index}][{key}]", value.ToString() ?? string.Empty);
+                {
+                    if (property.PropertyType == typeof(DateTime))
+                    {
+                        dictionary.Add($"list[{index}][{key}]", Convert.ToDateTime(value).ToString(App._DateTimeFormat) ?? string.Empty);
+                    }
+                    else
+                        dictionary.Add($"list[{index}][{key}]", value.ToString() ?? string.Empty);
+                }
             }
 
             return dictionary;

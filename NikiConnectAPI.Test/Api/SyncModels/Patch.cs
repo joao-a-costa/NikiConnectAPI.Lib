@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NikiConnectAPI.Lib.Helpers;
+using NikiConnectAPI.Lib.Models.ServiceModels;
 using NikiConnectAPI.Lib.Models.SyncModels;
 using NikiConnectAPI.Test.Utilities;
 
 namespace NikiConnectAPI.Test.Api.SyncModels
 {
     [TestClass()]
-    public class Post : BaseTester
+    public class Patch : BaseTester
     {
         #region "Public Methods"
 
@@ -26,31 +27,31 @@ namespace NikiConnectAPI.Test.Api.SyncModels
         [TestMethod()]
         public async Task Address()
         {
-            await PostEntity<Address>();
+            await PatchEntity<Address>();
         }
 
         [TestMethod()]
         public async Task Bank()
         {
-            await PostEntity<Bank>();
+            await PatchEntity<Bank>();
         }
 
         [TestMethod()]
         public async Task Contact()
         {
-            await PostEntity<Contact>();
+            await PatchEntity<Contact>();
         }
 
         [TestMethod()]
         public async Task Document()
         {
-            await PostEntity<Document>();
+            await PatchEntity<Document>();
         }
 
         [TestMethod()]
-        public async Task DocumentHeader()
+        public async Task DocumentHeaders()
         {
-            await PostEntity<DocumentHeader>();
+            await PatchEntity<DocumentHeader>();
         }
 
         #endregion
