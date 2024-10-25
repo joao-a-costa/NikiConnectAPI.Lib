@@ -21,6 +21,12 @@ namespace NikiConnectAPI.Test.Api.ServiceModels
         }
 
         [TestMethod()]
+        public async Task Country()
+        {
+            await PostEntity<Country>();
+        }
+
+        [TestMethod()]
         public async Task City()
         {
             await PostEntity<City>();
@@ -31,12 +37,6 @@ namespace NikiConnectAPI.Test.Api.ServiceModels
         //{
         //    await PostEntity<Company>();
         //}
-
-        [TestMethod()]
-        public async Task Country()
-        {
-            await PostEntity<Country>();
-        }
 
         //[TestMethod()]
         //public async Task Currency()

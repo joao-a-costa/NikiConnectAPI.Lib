@@ -35,7 +35,7 @@ namespace NikiConnectAPI.Lib.Helpers
             return result;
         }
 
-        public static Dictionary<string, string> ToDictionary<T>(T obj, int index = 0)
+        public static Dictionary<string, string> ToDictionary<T>(T obj, List<string> listFieldsNotToInclude = null, int index = 0)
         {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
@@ -51,6 +51,10 @@ namespace NikiConnectAPI.Lib.Helpers
             // Iterate over all properties and construct key-value pairs
             foreach (PropertyInfo property in properties)
             {
+                // Skip if the property name is in the exclusion list
+                if (listFieldsNotToInclude != null && listFieldsNotToInclude.Contains(property.Name))
+                    continue;
+
                 // Get the JsonProperty attribute
                 var jsonPropertyAttribute = property.GetCustomAttribute<JsonPropertyAttribute>();
                 string key = jsonPropertyAttribute != null ? jsonPropertyAttribute.PropertyName : property.Name.ToLower();
