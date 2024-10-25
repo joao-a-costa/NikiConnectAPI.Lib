@@ -7,6 +7,7 @@ namespace NikiConnectAPI.Test
 {
     public class App : IApp
     {
+        public const string _FieldExternalId = "ExternalId";
         public long Limit { get; set; }
         public string Url { get; set; }
         public string UrlVersion { get; set; }

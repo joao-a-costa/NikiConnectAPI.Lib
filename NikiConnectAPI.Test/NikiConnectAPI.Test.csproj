@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Api\BaseTester.cs" />
     <Compile Include="Api\ServiceModels\Post.cs" />
+    <Compile Include="Api\ServiceModels\Patch.cs" />
     <Compile Include="Api\SyncModels\Post.cs" />
     <Compile Include="Api\SyncModels\Get.cs" />
     <Compile Include="Api\ServiceModels\Get.cs" />
@@ -63,7 +64,6 @@
     <Compile Include="Interfaces\IApp.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\NikiUtility.cs" />
     <Compile Include="Utilities\RandomPropertyChanger.cs" />
   </ItemGroup>
   <ItemGroup>

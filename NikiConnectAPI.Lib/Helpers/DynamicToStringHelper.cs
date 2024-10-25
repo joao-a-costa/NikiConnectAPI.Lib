@@ -59,7 +59,8 @@ namespace NikiConnectAPI.Lib.Helpers
                 object value = property.GetValue(obj);
 
                 // Add key-value pair to the dictionary
-                dictionary.Add($"list[{index}][{key}]", value?.ToString() ?? string.Empty);
+                if (value != null && !string.IsNullOrEmpty(value.ToString()))
+                    dictionary.Add($"list[{index}][{key}]", value.ToString() ?? string.Empty);
             }
 
             return dictionary;

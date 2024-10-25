@@ -33,6 +33,14 @@ namespace NikiConnectAPI.Test.Utilities
             return properties;
         }
 
+        public static void GetPrimitiveValue(object obj, string propertyName, object value)
+        {
+            var propertyInfo = obj.GetType().GetProperty(propertyName);
+
+            if (propertyInfo != null && propertyInfo.CanWrite)
+                GetPrimitiveValue(propertyInfo, obj);
+        }
+
         public static object GetPrimitiveValue(PropertyInfo propertyInfo, object obj)
         {
             return propertyInfo.GetValue(obj);
