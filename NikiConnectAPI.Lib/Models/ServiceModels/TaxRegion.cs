@@ -15,10 +15,10 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         public int CompanyId { get; set; }
 
         [JsonProperty("status_id")]
-        public int StatusId { get; set; }
+        public int StatusId { get; set; } = 1;
 
         [JsonProperty("group_id")]
-        public int GroupId { get; set; }
+        public int GroupId { get; set; } = 1;
 
         [JsonProperty("typeable_type_id")]
         public int? TypeableTypeId { get; set; }

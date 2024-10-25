@@ -40,7 +40,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int ProcessId { get; set; }
 
         [JsonProperty("status_id")]
-        public int StatusId { get; set; }
+        public int StatusId { get; set; } = 1;
 
         [JsonProperty("entity_id")]
         public int EntityId { get; set; }

@@ -12,7 +12,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int Id { get; set; }
 
         [JsonProperty("status_id")]
-        public int StatusId { get; set; }
+        public int StatusId { get; set; } = 1;
 
         [JsonProperty("group_id")]
         public object GroupId { get; set; }

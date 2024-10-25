@@ -23,10 +23,10 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         public int? Depth { get; set; }
 
         [JsonProperty("status_id")]
-        public int StatusId { get; set; }
+        public int StatusId { get; set; } = 1;
 
         [JsonProperty("group_id")]
-        public int GroupId { get; set; }
+        public int GroupId { get; set; } = 1;
 
         [JsonProperty("attachment_id")]
         public object AttachmentId { get; set; }

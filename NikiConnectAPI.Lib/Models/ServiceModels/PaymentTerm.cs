@@ -11,7 +11,7 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         public int Id { get; set; }
 
         [JsonProperty("group_id")]
-        public int GroupId { get; set; }
+        public int GroupId { get; set; } = 1;
 
         [JsonProperty("company_id")]
         public int CompanyId { get; set; }
