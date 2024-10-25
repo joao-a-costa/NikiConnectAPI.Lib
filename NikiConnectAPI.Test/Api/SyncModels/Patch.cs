@@ -54,6 +54,30 @@ namespace NikiConnectAPI.Test.Api.SyncModels
             await PatchEntity<DocumentHeader>();
         }
 
+        [TestMethod()]
+        public async Task DocumentDetails()
+        {
+            await PatchEntity<DocumentDetail>();
+        }
+
+        [TestMethod()]
+        public async Task Entities()
+        {
+            await PatchEntity<Entity>();
+        }
+
+        [TestMethod()]
+        public async Task EntityAccounts()
+        {
+            await PatchEntity<EntityAccount>();
+        }
+
+        [TestMethod()]
+        public async Task EntityBankAccounts()
+        {
+            await PatchEntity<EntityBankAccount>();
+        }
+
         #endregion
     }
 }

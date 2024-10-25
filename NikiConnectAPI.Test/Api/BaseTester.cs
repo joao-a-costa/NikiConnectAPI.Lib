@@ -206,6 +206,12 @@ namespace NikiConnectAPI.Test.Api
 
         protected async Task PostEntity<T>() where T : class, IBaseModel
         {
+            await PostEntity<T>(App.ListFieldsNotToInclude);
+        }
+
+        protected async Task PostEntity<T>(List<string> listFieldsNotToInclude)
+            where T : class, IBaseModel
+        {
             var app = new App();
             var resOperation = false;
 
@@ -242,7 +248,7 @@ namespace NikiConnectAPI.Test.Api
                     }
 
                     // Step 5: Post the updated item after modifying all properties
-                    var res = await PostDataAsync<T>(DynamicToStringHelper.ToDictionary(item));
+                    var res = await PostDataAsync<T>(DynamicToStringHelper.ToDictionary(item, listFieldsNotToInclude));
 
                     if (res?.DataResult != null)
                     {

@@ -55,6 +55,34 @@ namespace NikiConnectAPI.Test.Api.SyncModels
             Assert.IsTrue(res?.DataResult != null);
         }
 
+        [TestMethod()]
+        public async Task GetDocumentDetails()
+        {
+            var res = await GetDataAsync<DocumentDetail>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetEntities()
+        {
+            var res = await GetDataAsync<Entity>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetEntityAccounts()
+        {
+            var res = await GetDataAsync<EntityAccount>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetEntityBankAccounts()
+        {
+            var res = await GetDataAsync<EntityBankAccount>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
         #endregion
     }
 }

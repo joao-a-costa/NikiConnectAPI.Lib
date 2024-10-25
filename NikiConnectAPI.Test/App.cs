@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using NikiConnectAPI.Lib.Interfaces;
 using NikiConnectAPI.Test.Interfaces;
 
 namespace NikiConnectAPI.Test
@@ -22,6 +23,7 @@ namespace NikiConnectAPI.Test
         public string XCompany { get; set; }
         public string DateFormat { get; set; }
         public static List<Type> AttributeTypes { get; set; } = new List<Type>() { typeof(Lib.Attributes.EditableAttribute) };
+        public static List<string> ListFieldsNotToInclude { get; set; } = new List<string>() { nameof(IBaseModel.Id) };
 
         public App()
         {
