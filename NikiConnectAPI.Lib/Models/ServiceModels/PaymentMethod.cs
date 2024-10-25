@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NikiConnectAPI.Lib.Attributes;
 using NikiConnectAPI.Lib.Interfaces;
 
 namespace NikiConnectAPI.Lib.Models.ServiceModels
@@ -14,7 +15,7 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
 
         [JsonProperty("company_id")]
         public int CompanyId { get; set; }
-
+        [Editable(true)]
         [JsonProperty("matchcode")]
         public string Matchcode { get; set; }
 

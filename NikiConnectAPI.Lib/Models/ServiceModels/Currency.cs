@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using NikiConnectAPI.Lib.Attributes;
 using NikiConnectAPI.Lib.Interfaces;
 
 namespace NikiConnectAPI.Lib.Models.ServiceModels
@@ -58,8 +59,9 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         [JsonProperty("updated_by")]
         public object UpdatedBy { get; set; }
 
+        [Editable(true)]
         [JsonProperty("module_comments")]
-        public object ModuleComments { get; set; }
+        public string ModuleComments { get; set; }
     }
 
 
