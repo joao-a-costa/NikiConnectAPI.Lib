@@ -67,13 +67,13 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public string DomesticCode { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public int? CreatedBy { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("updated_by")]
         public int? UpdatedBy { get; set; }

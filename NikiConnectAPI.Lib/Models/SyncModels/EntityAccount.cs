@@ -209,10 +209,10 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int UpdatedBy { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("module_comments")]
         public object ModuleComments { get; set; }

@@ -167,12 +167,12 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public object ClosedBy { get; set; }
 
         [JsonProperty("deleted_at")]
-        public object DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
     }
 }

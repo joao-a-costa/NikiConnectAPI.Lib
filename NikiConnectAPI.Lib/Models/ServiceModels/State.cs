@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using NikiConnectAPI.Lib.Attributes;
 using NikiConnectAPI.Lib.Interfaces;
 
@@ -48,19 +49,19 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         public string Geography { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public int? CreatedBy { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("updated_by")]
         public int? UpdatedBy { get; set; }
 
         [JsonProperty("deleted_at")]
-        public object DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         [JsonProperty("deleted_by")]
         public object DeletedBy { get; set; }
