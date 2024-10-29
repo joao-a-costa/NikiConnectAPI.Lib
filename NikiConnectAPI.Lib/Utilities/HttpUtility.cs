@@ -172,7 +172,8 @@ namespace NikiConnectAPI.Lib.Utilities
                 // Process the response as JSON
                 SuccessObject = JsonConvert.DeserializeObject<T>(result, new JsonSerializerSettings
                 {
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new List<JsonConverter> { new SafeDateTimeConverter() }
                 });
             }
 

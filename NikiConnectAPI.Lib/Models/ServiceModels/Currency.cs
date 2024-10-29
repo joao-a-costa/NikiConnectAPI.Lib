@@ -48,13 +48,13 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         public string ThousandPoint { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("created_by")]
         public object CreatedBy { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("updated_by")]
         public object UpdatedBy { get; set; }

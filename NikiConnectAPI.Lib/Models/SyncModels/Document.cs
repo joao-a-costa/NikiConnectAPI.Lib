@@ -98,10 +98,10 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public object CarrierId { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("sync_id")]
         public object SyncId { get; set; }
