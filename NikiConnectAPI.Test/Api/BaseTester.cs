@@ -99,6 +99,154 @@ namespace NikiConnectAPI.Test.Api
             };
         }
 
+        private async Task<DataResponse<T>> PostDataAsync<T>(object data) where T : class
+        {
+            var app = new App();
+
+            if (Header == null) return null;
+            var res = await Lib.Api.DataFetcher.Post<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientPost}",
+                Header,
+                data);
+            return res;
+        }
+
+        private async Task PostEntity<T>(List<string> listFieldsNotToInclude)
+            where T : class, IBaseModel
+        {
+            var app = new App();
+            var resOperation = false;
+
+            // Step 1: Get data
+            var resGet = await GetDataAsync<T>();
+
+            if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
+            {
+                // Step 2: Select a random item from the data list
+                var item = resGet.DataResult.Data[new Random().Next(resGet.DataResult.Data.Count)];
+                var itemPropertyToChange = GetFirstProperty(item, App._FieldExternalId);
+
+                if (itemPropertyToChange == null)
+                    Assert.Fail($"Property '{App._FieldExternalId}' not found in the model.");
+
+                item.Id = 0;
+                RandomPropertyChanger.SetPrimitiveProperty(itemPropertyToChange, item, Guid.NewGuid().ToString());
+
+                // Step 3: Get the list of random primitive properties
+                var itemProperties = RandomPropertyChanger.GetRandomPropertiesWithAttributes(item, App.AttributeTypes);
+
+                // Dictionary to store original and new values for each property
+                var originalAndNewValues = new Dictionary<PropertyInfo, (object originalValue, object originalValueNew)>();
+
+                if (itemProperties != null && itemProperties.Count > 0)
+                {
+                    // Step 4: For each property, store original values and modify the item
+                    foreach (var itemProperty in itemProperties)
+                    {
+                        var originalValue = RandomPropertyChanger.GetPrimitiveValue(itemProperty, item);
+                        var originalValueNew = $"{originalValue}{DateTime.Now.ToString(app.DateFormat)}";
+
+                        // Store original and new values in the dictionary
+                        originalAndNewValues[itemProperty] = (originalValue, originalValueNew);
+
+                        // Change the property to a new value
+                        RandomPropertyChanger.SetPrimitiveProperty(itemProperty, item, originalValueNew);
+                    }
+
+                    // Step 5: Post the updated item after modifying all properties
+                    var res = await PostDataAsync<T>(DynamicToStringHelper.ToDictionary(item, listFieldsNotToInclude));
+
+                    if (res?.DataResult != null)
+                    {
+                        // Step 6: Re-fetch the data
+                        resGet = await GetDataAsync<T>();
+
+                        if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
+                        {
+                            // Step 7: Find the updated item based on its ID
+                            var externalId = RandomPropertyChanger.GetPrimitiveValue(itemPropertyToChange, item)?.ToString();
+                            var itemFound = resGet.DataResult.Data.Find(f =>
+                                RandomPropertyChanger.GetPrimitiveValue(itemPropertyToChange, f)?.ToString() == externalId);
+
+                            if (itemFound != null)
+                            {
+                                // Step 8: For each property, check the updated value and verify the changes
+                                foreach (var kvp in originalAndNewValues)
+                                {
+                                    var itemProperty = kvp.Key;
+                                    var (originalValue, originalValueNew) = kvp.Value;
+
+                                    var newValue = RandomPropertyChanger.GetPrimitiveValue(itemProperty, itemFound);
+
+                                    // Step 9: Verify if the original value and new value are different
+                                    resOperation = originalValue?.ToString() != newValue.ToString() && originalValueNew.ToString() == newValue.ToString();
+
+                                    Assert.AreNotEqual(originalValue?.ToString(), newValue.ToString(), $"Property '{itemProperty.Name}' was not updated correctly.");
+
+                                    if (!resOperation)
+                                        break; // If one property fails, stop further processing
+                                }
+                            }
+                            else
+                                Assert.IsTrue(resOperation, "Item was not found after insert.");
+                        }
+                    }
+                    else if (res?.Error != null)
+                        Assert.Fail(res.Error.Message);
+                }
+            }
+            else if (resGet?.Exception != null)
+                Assert.Fail(resGet.Exception.Message);
+
+            // Final assertion to ensure the operation was successful
+            Assert.IsTrue(resOperation, "Post entity.");
+        }
+
+        protected async Task DeleteEntity<T>(List<string> listFieldsToInclude)
+            where T : class, IBaseModel
+        {
+            var app = new App();
+            var resOperation = false;
+
+            // Step 1: Get data
+            var resGet = await GetDataAsync<T>();
+
+            if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
+            {
+                // Step 2: Select a random item from the data list
+                var item = resGet.DataResult.Data[new Random().Next(resGet.DataResult.Data.Count)];
+
+                // Step 3: Convert the item to a dictionary with fields to include
+                var res = await PostDataAsync<T>(DynamicToStringHelper.ToDictionary(item, listFieldsToInclude: listFieldsToInclude));
+
+                if (res?.DataResult != null)
+                {
+                    // Step 5: Re-fetch the data
+                    resGet = await GetDataAsync<T>();
+
+                    if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
+                    {
+                        // Step 6: Find the updated item based on its ID
+                        var itemFound = resGet.DataResult.Data.Find(f => f.Id == item.Id);
+                        resOperation = itemFound == null;
+
+                        if (resOperation)
+                        {
+                            Assert.IsTrue(resOperation, "Item was not found after delete.");
+                        }
+                        else
+                            Assert.IsTrue(resOperation, "Item was found after insert.");
+                    }
+                }
+                else if (res?.Error != null)
+                    Assert.Fail(res.Error.Message);
+            }
+            else if (resGet?.Exception != null)
+                Assert.Fail(resGet.Exception.Message);
+
+            // Final assertion to ensure the operation was successful
+            Assert.IsTrue(resOperation, "Delete entity.");
+        }
+
         #region "Get"
 
         private async Task<DataResponse<T>> GetDataInternalAsync<T>(string url, long? limit = null) where T : class
@@ -142,17 +290,6 @@ namespace NikiConnectAPI.Test.Api
         }
 
         #endregion
-
-        protected async Task<DataResponse<T>> PostDataAsync<T>(object data) where T : class
-        {
-            var app = new App();
-
-            if (Header == null) return null;
-            var res = await Lib.Api.DataFetcher.Post<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientPost}",
-                Header,
-                data);
-            return res;
-        }
 
         protected async Task PatchEntity<T>() where T : class, IBaseModel
         {
@@ -246,103 +383,12 @@ namespace NikiConnectAPI.Test.Api
 
 
             // Final assertion to ensure the operation was successful
-            Assert.IsTrue(resOperation, "No changes were detected in the property values.");
+            Assert.IsTrue(resOperation, "Patch entity.");
         }
 
         protected async Task PostEntity<T>() where T : class, IBaseModel
         {
             await PostEntity<T>(App.ListFieldsNotToInclude);
-        }
-
-        protected async Task PostEntity<T>(List<string> listFieldsNotToInclude)
-            where T : class, IBaseModel
-        {
-            var app = new App();
-            var resOperation = false;
-
-            // Step 1: Get data
-            var resGet = await GetDataAsync<T>();
-
-            if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
-            {
-                // Step 2: Select a random item from the data list
-                var item = resGet.DataResult.Data[new Random().Next(resGet.DataResult.Data.Count)];
-                var itemPropertyToChange = GetFirstProperty(item, App._FieldExternalId);
-
-                if (itemPropertyToChange == null)
-                    Assert.Fail($"Property '{App._FieldExternalId}' not found in the model.");
-
-                item.Id = 0;
-                RandomPropertyChanger.SetPrimitiveProperty(itemPropertyToChange, item, Guid.NewGuid().ToString());
-
-                // Step 3: Get the list of random primitive properties
-                var itemProperties = RandomPropertyChanger.GetRandomPropertiesWithAttributes(item, App.AttributeTypes);
-
-                // Dictionary to store original and new values for each property
-                var originalAndNewValues = new Dictionary<PropertyInfo, (object originalValue, object originalValueNew)>();
-
-                if (itemProperties != null && itemProperties.Count > 0)
-                {
-                    // Step 4: For each property, store original values and modify the item
-                    foreach (var itemProperty in itemProperties)
-                    {
-                        var originalValue = RandomPropertyChanger.GetPrimitiveValue(itemProperty, item);
-                        var originalValueNew = $"{originalValue}{DateTime.Now.ToString(app.DateFormat)}";
-
-                        // Store original and new values in the dictionary
-                        originalAndNewValues[itemProperty] = (originalValue, originalValueNew);
-
-                        // Change the property to a new value
-                        RandomPropertyChanger.SetPrimitiveProperty(itemProperty, item, originalValueNew);
-                    }
-
-                    // Step 5: Post the updated item after modifying all properties
-                    var res = await PostDataAsync<T>(DynamicToStringHelper.ToDictionary(item, listFieldsNotToInclude));
-
-                    if (res?.DataResult != null)
-                    {
-                        // Step 6: Re-fetch the data
-                        resGet = await GetDataAsync<T>();
-
-                        if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
-                        {
-                            // Step 7: Find the updated item based on its ID
-                            var externalId = RandomPropertyChanger.GetPrimitiveValue(itemPropertyToChange, item)?.ToString();
-                            var itemFound = resGet.DataResult.Data.Find(f =>
-                                RandomPropertyChanger.GetPrimitiveValue(itemPropertyToChange, f)?.ToString() == externalId);
-
-                            if (itemFound != null)
-                            {
-                                // Step 8: For each property, check the updated value and verify the changes
-                                foreach (var kvp in originalAndNewValues)
-                                {
-                                    var itemProperty = kvp.Key;
-                                    var (originalValue, originalValueNew) = kvp.Value;
-
-                                    var newValue = RandomPropertyChanger.GetPrimitiveValue(itemProperty, itemFound);
-
-                                    // Step 9: Verify if the original value and new value are different
-                                    resOperation = originalValue?.ToString() != newValue.ToString() && originalValueNew.ToString() == newValue.ToString();
-
-                                    Assert.AreNotEqual(originalValue?.ToString(), newValue.ToString(), $"Property '{itemProperty.Name}' was not updated correctly.");
-
-                                    if (!resOperation)
-                                        break; // If one property fails, stop further processing
-                                }
-                            }
-                            else
-                                Assert.IsTrue(resOperation, "Item was not found after insert.");
-                        }
-                    }
-                    else if (res?.Error != null)
-                        Assert.Fail(res.Error.Message);
-                }
-            }
-            else if (resGet?.Exception != null)
-                Assert.Fail(resGet.Exception.Message);
-
-            // Final assertion to ensure the operation was successful
-            Assert.IsTrue(resOperation, "No changes were detected in the property values.");
         }
 
         #endregion

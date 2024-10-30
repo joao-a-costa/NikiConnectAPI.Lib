@@ -83,6 +83,27 @@ namespace NikiConnectAPI.Test.Api.SyncModels
             Assert.IsTrue(res?.DataResult != null);
         }
 
+        [TestMethod()]
+        public async Task GetItemBarcodeTypes()
+        {
+            var res = await GetDataAsync<ItemBarcodeType>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItemDescriptions()
+        {
+            var res = await GetDataAsync<ItemDescription>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItemFamilies()
+        {
+            var res = await GetDataAsync<ItemFamily>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
         #endregion
     }
 }

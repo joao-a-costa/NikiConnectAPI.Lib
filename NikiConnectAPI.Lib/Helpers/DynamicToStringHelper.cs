@@ -8,34 +8,10 @@ namespace NikiConnectAPI.Lib.Helpers
 {
     public static class DynamicToStringHelper
     {
-        public static string ToDynamicString<T>(T obj, int index = 0)
-        {
-            obj = default;
-
-            Type type = obj.GetType();
-            PropertyInfo[] properties = type.GetProperties();
-            List<string> keyValuePairs = new List<string>();
-
-            // Construct list[0]["id"] part
-            string result = $"list[{index}][\"id\"]: {type.GetProperty("Id")?.GetValue(obj)}";
-
-            // Iterate over all properties and construct key-value pairs
-            foreach (PropertyInfo property in properties)
-            {
-                object value = property.GetValue(obj);
-                string key = property.Name;
-
-                // Add key-value pair to the list in the specified format
-                keyValuePairs.Add($"{{\"key\":\"list[{index}][\\\"{key.ToLower()}\\\"]\",\"value\":\"{value}\",\"type\":\"text\",\"enabled\":false}}");
-            }
-
-            // Join key-value pairs and append them to the result
-            result += " [" + string.Join(", ", keyValuePairs) + "]";
-
-            return result;
-        }
-
-        public static Dictionary<string, string> ToDictionary<T>(T obj, List<string> listFieldsNotToInclude = null, int index = 0)
+        public static Dictionary<string, string> ToDictionary<T>(T obj,
+            List<string> listFieldsNotToInclude = null,
+            List<string> listFieldsToInclude = null,
+            int index = 0)
         {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
@@ -51,7 +27,11 @@ namespace NikiConnectAPI.Lib.Helpers
             // Iterate over all properties and construct key-value pairs
             foreach (PropertyInfo property in properties)
             {
-                // Skip if the property name is in the exclusion list
+                // Skip property if not in the inclusion list (if provided)
+                if (listFieldsToInclude != null && !listFieldsToInclude.Contains(property.Name))
+                    continue;
+
+                // Skip property if in the exclusion list
                 if (listFieldsNotToInclude != null && listFieldsNotToInclude.Contains(property.Name))
                     continue;
 
@@ -70,7 +50,9 @@ namespace NikiConnectAPI.Lib.Helpers
                         dictionary.Add($"list[{index}][{key}]", Convert.ToDateTime(value).ToString(App._DateTimeFormat) ?? string.Empty);
                     }
                     else
+                    {
                         dictionary.Add($"list[{index}][{key}]", string.IsNullOrEmpty(value.ToString()) ? $"\"\"" : value.ToString());
+                    }
                 }
             }
 

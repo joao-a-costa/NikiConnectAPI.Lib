@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\BaseTester.cs" />
+    <Compile Include="Api\ServiceModels\Delete.cs" />
     <Compile Include="Api\ServiceModels\Post.cs" />
     <Compile Include="Api\ServiceModels\Patch.cs" />
     <Compile Include="Api\SyncModels\Patch.cs" />

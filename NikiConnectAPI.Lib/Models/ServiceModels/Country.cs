@@ -117,17 +117,21 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         [JsonProperty("created_by")]
         public int? CreatedBy { get; set; }
 
-        [JsonProperty("updated_at")]
-        public DateTime? UpdatedAt { get; set; }
+        //[JsonProperty("updated_at")]
+        //public DateTime? UpdatedAt { get; set; }
 
-        [JsonProperty("updated_by")]
-        public int? UpdatedBy { get; set; }
+        //[JsonProperty("updated_by")]
+        //public int? UpdatedBy { get; set; }
+
         //[JsonProperty("deleted_at")]
         //public DateTime DeletedAt { get; set; }
+
         //[JsonProperty("deleted_by")]
         //public int? DeletedBy { get; set; }
+
         [JsonProperty("module_comments")]
         public string ModuleComments { get; set; }
+
         [Editable(true)]
         [JsonProperty("external_id")]
         public string ExternalId { get; set; }
