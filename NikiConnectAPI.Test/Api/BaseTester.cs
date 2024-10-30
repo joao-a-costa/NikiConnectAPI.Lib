@@ -31,6 +31,21 @@ namespace NikiConnectAPI.Test.Api
 
         #region "Private Methods"
 
+        private static PropertyInfo GetFirstProperty<T>(T item, List<string> propertiesToSearch)
+        {
+            PropertyInfo propertyInfo = null;
+
+            foreach (var property in propertiesToSearch)
+            {
+                propertyInfo = item.GetType().GetProperty(property);
+
+                if (propertyInfo != null)
+                    break;
+            }
+
+            return propertyInfo;
+        }
+
         protected static async Task<string> GetAccessTokenAsync()
         {
             var tokenFilePath = _TokenFilePath;
@@ -222,9 +237,13 @@ namespace NikiConnectAPI.Test.Api
             {
                 // Step 2: Select a random item from the data list
                 var item = resGet.DataResult.Data[new Random().Next(resGet.DataResult.Data.Count)];
+                var itemPropertyToChange = GetFirstProperty(item, App._FieldExternalId);
+
+                if (itemPropertyToChange == null)
+                    Assert.Fail($"Property '{App._FieldExternalId}' not found in the model.");
 
                 item.Id = 0;
-                RandomPropertyChanger.SetPrimitiveProperty(item.GetType().GetProperty(App._FieldExternalId), item, Guid.NewGuid().ToString());
+                RandomPropertyChanger.SetPrimitiveProperty(itemPropertyToChange, item, Guid.NewGuid().ToString());
 
                 // Step 3: Get the list of random primitive properties
                 var itemProperties = RandomPropertyChanger.GetRandomPropertiesWithAttributes(item, App.AttributeTypes);
@@ -258,9 +277,9 @@ namespace NikiConnectAPI.Test.Api
                         if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
                         {
                             // Step 7: Find the updated item based on its ID
-                            var externalId = RandomPropertyChanger.GetPrimitiveValue(item.GetType().GetProperty(App._FieldExternalId), item)?.ToString();
+                            var externalId = RandomPropertyChanger.GetPrimitiveValue(itemPropertyToChange, item)?.ToString();
                             var itemFound = resGet.DataResult.Data.Find(f =>
-                                RandomPropertyChanger.GetPrimitiveValue(f.GetType().GetProperty(App._FieldExternalId), f)?.ToString() == externalId);
+                                RandomPropertyChanger.GetPrimitiveValue(itemPropertyToChange, f)?.ToString() == externalId);
 
                             if (itemFound != null)
                             {

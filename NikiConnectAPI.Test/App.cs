@@ -8,7 +8,6 @@ namespace NikiConnectAPI.Test
 {
     public class App : IApp
     {
-        public const string _FieldExternalId = "ExternalId";
         public long Limit { get; set; }
         public string Url { get; set; }
         public string UrlVersion { get; set; }
@@ -22,6 +21,7 @@ namespace NikiConnectAPI.Test
         public string XTenant { get; set; }
         public string XCompany { get; set; }
         public string DateFormat { get; set; }
+        public static List<string> _FieldExternalId = new List<string>() { "ExternalId", "Matchcode" };
         public static List<Type> AttributeTypes { get; set; } = new List<Type>() { typeof(Lib.Attributes.EditableAttribute) };
         public static List<string> ListFieldsNotToInclude { get; set; } = new List<string>() { nameof(IBaseModel.Id) };
 
