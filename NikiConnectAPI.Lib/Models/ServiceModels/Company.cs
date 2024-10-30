@@ -16,8 +16,8 @@ namespace NikiConnectAPI.Lib.Models.ServiceModels
         [JsonProperty("group_id")]
         public int GroupId { get; set; } = 1;
 
-        [Editable(true)]
-        [JsonProperty("matchcode")]
-        public string Matchcode { get; set; }
+        //[Editable(true)]
+        //[JsonProperty("matchcode")]
+        //public string Matchcode { get; set; }
     }
 }

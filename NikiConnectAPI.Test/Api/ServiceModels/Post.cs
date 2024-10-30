@@ -32,17 +32,17 @@ namespace NikiConnectAPI.Test.Api.ServiceModels
             await PostEntity<City>();
         }
 
-        //[TestMethod()]
-        //public async Task Comany()
-        //{
-        //    await PostEntity<Company>();
-        //}
+        [TestMethod()]
+        public async Task State()
+        {
+            await PostEntity<State>();
+        }
 
-        //[TestMethod()]
-        //public async Task Currency()
-        //{
-        //    await PostEntity<Currency>();
-        //}
+        [TestMethod()]
+        public async Task Currency()
+        {
+            await PostEntity<Currency>();
+        }
 
         [TestMethod()]
         public async Task PaymentMethod()
@@ -56,28 +56,28 @@ namespace NikiConnectAPI.Test.Api.ServiceModels
             await PostEntity<PaymentTerm>();
         }
 
-        //[TestMethod()]
-        //public async Task Priceline()
-        //{
-        //    await PostEntity<Priceline>();
-        //}
-
         [TestMethod()]
-        public async Task State()
+        public async Task TaxRegion()
         {
-            await PostEntity<State>();
+            await PostEntity<TaxRegion>();
         }
 
-        //[TestMethod()]
-        //public async Task TaxRegion()
-        //{
-        //    await PostEntity<TaxRegion>();
-        //}
+        [TestMethod()]
+        public async Task Priceline()
+        {
+            await PostEntity<Priceline>();
+        }
 
         //[TestMethod()]
         //public async Task TenantUser()
         //{
         //    await PostEntity<TenantUser>();
+        //}
+
+        //[TestMethod()]
+        //public async Task Comany()
+        //{
+        //    await PostEntity<Company>();
         //}
 
         #endregion

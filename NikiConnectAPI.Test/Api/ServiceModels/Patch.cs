@@ -21,21 +21,21 @@ namespace NikiConnectAPI.Test.Api.ServiceModels
         }
 
         [TestMethod()]
+        public async Task Country()
+        {
+            await PatchEntity<Country>();
+        }
+
+        [TestMethod()]
         public async Task City()
         {
             await PatchEntity<City>();
         }
 
         [TestMethod()]
-        public async Task Comany()
+        public async Task State()
         {
-            await PatchEntity<Company>();
-        }
-
-        [TestMethod()]
-        public async Task Country()
-        {
-            await PatchEntity<Country>();
+            await PatchEntity<State>();
         }
 
         [TestMethod()]
@@ -57,27 +57,27 @@ namespace NikiConnectAPI.Test.Api.ServiceModels
         }
 
         [TestMethod()]
-        public async Task Priceline()
-        {
-            await PatchEntity<Priceline>();
-        }
-
-        [TestMethod()]
-        public async Task State()
-        {
-            await PatchEntity<State>();
-        }
-
-        [TestMethod()]
         public async Task TaxRegion()
         {
             await PatchEntity<TaxRegion>();
+        }
+
+        [TestMethod()]
+        public async Task Priceline()
+        {
+            await PatchEntity<Priceline>();
         }
 
         //[TestMethod()]
         //public async Task TenantUser()
         //{
         //    await PatchEntity<TenantUser>();
+        //}
+
+        //[TestMethod()]
+        //public async Task Comany()
+        //{
+        //    await PatchEntity<Company>();
         //}
 
         #endregion
