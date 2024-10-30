@@ -13,8 +13,9 @@ namespace NikiConnectAPI.Test
         public string Url { get; set; }
         public string UrlVersion { get; set; }
         public string UrlToken { get; set; }
-        public string UrlRemoteApiClientModels { get; set; }
-        public string UrlRemoteApiClientUpsert { get; set; }
+        public string UrlRemoteApiClientGet { get; set; }
+        public string UrlRemoteApiClientGetByID { get; set; }
+        public string UrlRemoteApiClientPost { get; set; }
         public string UrlUserAgent { get; set; }
         public string ClientID { get; set; }
         public string ClientSecret { get; set; }
@@ -36,8 +37,9 @@ namespace NikiConnectAPI.Test
             Url = ConfigurationManager.AppSettings["Url"] ?? string.Empty;
             UrlVersion = ConfigurationManager.AppSettings["UrlVersion"] ?? string.Empty;
             UrlToken = ConfigurationManager.AppSettings["UrlToken"] ?? string.Empty;
-            UrlRemoteApiClientModels = ConfigurationManager.AppSettings["UrlRemoteApiClientModels"] ?? string.Empty;
-            UrlRemoteApiClientUpsert = ConfigurationManager.AppSettings["UrlRemoteApiClientUpsert"] ?? string.Empty;
+            UrlRemoteApiClientGet = ConfigurationManager.AppSettings["UrlRemoteApiClientGet"] ?? string.Empty;
+            UrlRemoteApiClientGetByID = ConfigurationManager.AppSettings["UrlRemoteApiClientGetByID"] ?? string.Empty;
+            UrlRemoteApiClientPost = ConfigurationManager.AppSettings["UrlRemoteApiClientPost"] ?? string.Empty;
             UrlUserAgent = ConfigurationManager.AppSettings["UrlUserAgent"] ?? string.Empty;
             ClientID = ConfigurationManager.AppSettings["ClientID"] ?? string.Empty;
             ClientSecret = ConfigurationManager.AppSettings["ClientSecret"] ?? string.Empty;

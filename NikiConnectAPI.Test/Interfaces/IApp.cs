@@ -7,8 +7,8 @@
         string DateFormat { get; set; }
         long Limit { get; set; }
         string Url { get; set; }
-        string UrlRemoteApiClientModels { get; set; }
-        string UrlRemoteApiClientUpsert { get; set; }
+        string UrlRemoteApiClientGet { get; set; }
+        string UrlRemoteApiClientPost { get; set; }
         string UrlToken { get; set; }
         string UrlUserAgent { get; set; }
         string UrlVersion { get; set; }

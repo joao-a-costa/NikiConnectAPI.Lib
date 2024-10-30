@@ -84,26 +84,56 @@ namespace NikiConnectAPI.Test.Api
             };
         }
 
+        #region "Get"
+
+        private async Task<DataResponse<T>> GetDataInternalAsync<T>(string url, long? limit = null) where T : class
+        {
+            if (Header == null) return null;
+            var res = await Lib.Api.DataFetcher.Get<T>(url,
+                Header,
+                limit);
+
+            if (res?.Exception != null)
+                Assert.Fail(res.Exception.Message);
+
+            return res;
+        }
+
+        private async Task<DataResponseByID<T>> GetDataInternalByIDAsync<T>(string url, long? limit = null) where T : class
+        {
+            if (Header == null) return null;
+            var res = await Lib.Api.DataFetcher.GetByID<T>(url,
+                Header,
+                limit);
+
+            if (res?.Exception != null)
+                Assert.Fail(res.Exception.Message);
+
+            return res;
+        }
+
         protected async Task<DataResponse<T>> GetDataAsync<T>() where T : class
         {
             var app = new App();
 
-            if (Header == null) return null;
-            var res = await Lib.Api.DataFetcher.Get<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientModels}",
-                Header,
-                app.Limit);
-
-            if (res?.Exception != null)
-                Assert.Fail(res.Exception.Message);
-            return res;
+            return await GetDataInternalAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}", (long?)app.Limit);
         }
+
+        protected async Task<DataResponseByID<T>> GetDataByIDAsync<T>(string id) where T : class
+        {
+            var app = new App();
+
+            return await GetDataInternalByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGetByID}/{id}");
+        }
+
+        #endregion
 
         protected async Task<DataResponse<T>> PostDataAsync<T>(object data) where T : class
         {
             var app = new App();
 
             if (Header == null) return null;
-            var res = await Lib.Api.DataFetcher.Post<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientUpsert}",
+            var res = await Lib.Api.DataFetcher.Post<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientPost}",
                 Header,
                 data);
             return res;
