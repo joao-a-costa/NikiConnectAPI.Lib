@@ -77,6 +77,24 @@ namespace NikiConnectAPI.Test.Api.SyncModels
             await PostEntity<EntityBankAccount>();
         }
 
+        [TestMethod()]
+        public async Task ItemBarcodeType()
+        {
+            await PostEntity<ItemBarcodeType>();
+        }
+
+        [TestMethod()]
+        public async Task ItemDescription()
+        {
+            await PostEntity<ItemDescription>();
+        }
+
+        [TestMethod()]
+        public async Task ItemFamily()
+        {
+            await PostEntity<ItemFamily>();
+        }
+
         #endregion
     }
 }

@@ -25,6 +25,7 @@ namespace NikiConnectAPI.Test
         public static List<string> _FieldExternalId = new List<string>() { "ExternalId", "Matchcode" };
         public static List<Type> AttributeTypes { get; set; } = new List<Type>() { typeof(Lib.Attributes.EditableAttribute) };
         public static List<string> ListFieldsNotToInclude { get; set; } = new List<string>() { nameof(IBaseModel.Id) };
+        public static List<string> ListFieldsToIncludeDelete { get; set; } = new List<string>() { nameof(IBaseModel.Id), "DeletedAd" };
 
         public App()
         {
