@@ -28,13 +28,15 @@ namespace NikiConnectAPI.Lib.Api
                     url = url.TrimEnd('/');
 
                 // Get the display name of the class T, fallback to the class name if no DisplayNameAttribute is present
-                var entityName = typeof(T).GetCustomAttributes(typeof(DisplayNameAttribute), false)
-                    .FirstOrDefault() is DisplayNameAttribute displayName
-                    ? displayName.DisplayName
-                    : typeof(T).Name.ToLower(); // fallback to the type name in lowercase
+                var entityName = string.Empty;
+                if (addSlug)
+                    entityName = typeof(T).GetCustomAttributes(typeof(DisplayNameAttribute), false)
+                        .FirstOrDefault() is DisplayNameAttribute displayName
+                        ? displayName.DisplayName
+                        : typeof(T).Name.ToLower(); // fallback to the type name in lowercase
 
                 var res = await Utilities.HttpUtility.EXECUTEAsync<DataResult<T>, DataResultError>(url,
-                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}&{$"{(addSlug ? $"&{App._FieldSlug}={entityName}" : string.Empty)}"}", App._ApiGet,
+                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}{$"{(addSlug ? $"&{App._FieldSlug}={entityName}" : string.Empty)}"}", App._ApiGet,
                     string.Empty,
                     headers, string.Empty, App._ContentType, 999999999);
 
@@ -56,7 +58,7 @@ namespace NikiConnectAPI.Lib.Api
         }
 
         public static async Task<DataResponseByID<T>> GetByID<T>(string url, Header header,
-            long? limit = null) where T : class
+            long? limit = null, bool addSlug = true) where T : class
         {
             Exception exception = null;
 
@@ -73,13 +75,15 @@ namespace NikiConnectAPI.Lib.Api
                     url = url.TrimEnd('/');
 
                 // Get the display name of the class T, fallback to the class name if no DisplayNameAttribute is present
-                var entityName = typeof(T).GetCustomAttributes(typeof(DisplayNameAttribute), false)
-                    .FirstOrDefault() is DisplayNameAttribute displayName
-                    ? displayName.DisplayName
-                    : typeof(T).Name.ToLower(); // fallback to the type name in lowercase
+                var entityName = string.Empty;
+                if (addSlug)
+                    entityName = typeof(T).GetCustomAttributes(typeof(DisplayNameAttribute), false)
+                        .FirstOrDefault() is DisplayNameAttribute displayName
+                        ? displayName.DisplayName
+                        : typeof(T).Name.ToLower(); // fallback to the type name in lowercase
 
                 var res = await Utilities.HttpUtility.EXECUTEAsync<DataResultByID<T>, DataResultError>(url,
-                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}&{App._FieldSlug}={entityName}", App._ApiGet,
+                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}{$"{(addSlug ? $"&{App._FieldSlug}={entityName}" : string.Empty)}"}", App._ApiGet,
                     string.Empty,
                     headers, string.Empty, App._ContentType, 999999999);
 

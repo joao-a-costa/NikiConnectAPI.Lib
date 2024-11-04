@@ -262,26 +262,12 @@ namespace NikiConnectAPI.Test.Api
             return res;
         }
 
-        protected static async Task<DataResponse<T>> GetDataModelsAsync<T>() where T : class
-        {
-            var app = new App();
-
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}", app.Limit);
-        }
-
-        protected static async Task<DataResponse<T>> GetDataFlyersAsync<T>() where T : class
-        {
-            var app = new App();
-
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}", app.Limit, false);
-        }
-
-        protected static async Task<DataResponseByID<T>> GetDataByIDAsync<T>(string url, long? limit = null) where T : class
+        protected static async Task<DataResponseByID<T>> GetDataByIDAsync<T>(string url, long? limit = null, bool addSlug = true) where T : class
         {
             if (Header == null) return null;
             var res = await Lib.Api.DataFetcher.GetByID<T>(url,
                 Header,
-                limit);
+                limit, addSlug);
 
             if (res?.Exception != null)
                 Assert.Fail(res.Exception.Message);
@@ -289,11 +275,32 @@ namespace NikiConnectAPI.Test.Api
             return res;
         }
 
+        protected static async Task<DataResponse<T>> GetDataModelsAsync<T>() where T : class
+        {
+            var app = new App();
+
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}", app.Limit);
+        }
+
         protected static async Task<DataResponseByID<T>> GetDataModelsByIDAsync<T>(string id) where T : class
         {
             var app = new App();
 
             return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGetByID}/{id}", app.Limit);
+        }
+
+        protected static async Task<DataResponse<T>> GetDataFlyersAsync<T>() where T : class
+        {
+            var app = new App();
+
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}", null, false);
+        }
+
+        protected static async Task<DataResponseByID<T>> GetDataFlyersByIDAsync<T>(string id) where T : class
+        {
+            var app = new App();
+
+            return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}/{id}", null, false);
         }
 
         #endregion
