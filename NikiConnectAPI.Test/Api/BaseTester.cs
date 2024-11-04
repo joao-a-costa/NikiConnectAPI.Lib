@@ -25,7 +25,7 @@ namespace NikiConnectAPI.Test.Api
         #region "Properties"
 
         public string AccessToken { get; set; }
-        public Header Header { get; set; }
+        public static Header Header { get; set; }
 
         #endregion
 
@@ -99,7 +99,7 @@ namespace NikiConnectAPI.Test.Api
             };
         }
 
-        private async Task<DataResponse<T>> PostDataAsync<T>(object data) where T : class
+        private static async Task<DataResponse<T>> PostDataAsync<T>(object data) where T : class
         {
             var app = new App();
 
@@ -110,14 +110,14 @@ namespace NikiConnectAPI.Test.Api
             return res;
         }
 
-        private async Task PostEntity<T>(List<string> listFieldsNotToInclude)
+        private static async Task PostEntity<T>(List<string> listFieldsNotToInclude)
             where T : class, IBaseModel
         {
             var app = new App();
             var resOperation = false;
 
             // Step 1: Get data
-            var resGet = await GetDataAsync<T>();
+            var resGet = await GetDataModelsAsync<T>();
 
             if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
             {
@@ -158,7 +158,7 @@ namespace NikiConnectAPI.Test.Api
                     if (res?.DataResult != null)
                     {
                         // Step 6: Re-fetch the data
-                        resGet = await GetDataAsync<T>();
+                        resGet = await GetDataModelsAsync<T>();
 
                         if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
                         {
@@ -201,14 +201,14 @@ namespace NikiConnectAPI.Test.Api
             Assert.IsTrue(resOperation, "Post entity.");
         }
 
-        protected async Task DeleteEntity<T>(List<string> listFieldsToInclude)
+        protected static async Task DeleteEntity<T>(List<string> listFieldsToInclude)
             where T : class, IBaseModel
         {
             var app = new App();
             var resOperation = false;
 
             // Step 1: Get data
-            var resGet = await GetDataAsync<T>();
+            var resGet = await GetDataModelsAsync<T>();
 
             if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
             {
@@ -221,7 +221,7 @@ namespace NikiConnectAPI.Test.Api
                 if (res?.DataResult != null)
                 {
                     // Step 5: Re-fetch the data
-                    resGet = await GetDataAsync<T>();
+                    resGet = await GetDataModelsAsync<T>();
 
                     if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
                     {
@@ -249,12 +249,12 @@ namespace NikiConnectAPI.Test.Api
 
         #region "Get"
 
-        private async Task<DataResponse<T>> GetDataInternalAsync<T>(string url, long? limit = null) where T : class
+        protected static async Task<DataResponse<T>> GetDataAsync<T>(string url, long? limit = null, bool addSlug = true) where T : class
         {
             if (Header == null) return null;
             var res = await Lib.Api.DataFetcher.Get<T>(url,
                 Header,
-                limit);
+                limit, addSlug);
 
             if (res?.Exception != null)
                 Assert.Fail(res.Exception.Message);
@@ -262,7 +262,21 @@ namespace NikiConnectAPI.Test.Api
             return res;
         }
 
-        private async Task<DataResponseByID<T>> GetDataInternalByIDAsync<T>(string url, long? limit = null) where T : class
+        protected static async Task<DataResponse<T>> GetDataModelsAsync<T>() where T : class
+        {
+            var app = new App();
+
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}", app.Limit);
+        }
+
+        protected static async Task<DataResponse<T>> GetDataFlyersAsync<T>() where T : class
+        {
+            var app = new App();
+
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}", app.Limit, false);
+        }
+
+        protected static async Task<DataResponseByID<T>> GetDataByIDAsync<T>(string url, long? limit = null) where T : class
         {
             if (Header == null) return null;
             var res = await Lib.Api.DataFetcher.GetByID<T>(url,
@@ -275,29 +289,22 @@ namespace NikiConnectAPI.Test.Api
             return res;
         }
 
-        protected async Task<DataResponse<T>> GetDataAsync<T>() where T : class
+        protected static async Task<DataResponseByID<T>> GetDataModelsByIDAsync<T>(string id) where T : class
         {
             var app = new App();
 
-            return await GetDataInternalAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}", (long?)app.Limit);
-        }
-
-        protected async Task<DataResponseByID<T>> GetDataByIDAsync<T>(string id) where T : class
-        {
-            var app = new App();
-
-            return await GetDataInternalByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGetByID}/{id}");
+            return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGetByID}/{id}", app.Limit);
         }
 
         #endregion
 
-        protected async Task PatchEntity<T>() where T : class, IBaseModel
+        protected static async Task PatchEntity<T>() where T : class, IBaseModel
         {
             var app = new App();
             var resOperation = false;
 
             // Step 1: Get data
-            var resGet = await GetDataAsync<T>();
+            var resGet = await GetDataModelsAsync<T>();
 
             if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
             {
@@ -331,7 +338,7 @@ namespace NikiConnectAPI.Test.Api
                     if (res?.DataResult != null)
                     {
                         // Step 6: Re-fetch the data
-                        resGet = await GetDataAsync<T>();
+                        resGet = await GetDataModelsAsync<T>();
 
                         if (resGet?.DataResult != null && resGet.DataResult?.Data?.Count > 0)
                         {
@@ -386,7 +393,7 @@ namespace NikiConnectAPI.Test.Api
             Assert.IsTrue(resOperation, "Patch entity.");
         }
 
-        protected async Task PostEntity<T>() where T : class, IBaseModel
+        protected static async Task PostEntity<T>() where T : class, IBaseModel
         {
             await PostEntity<T>(App.ListFieldsNotToInclude);
         }

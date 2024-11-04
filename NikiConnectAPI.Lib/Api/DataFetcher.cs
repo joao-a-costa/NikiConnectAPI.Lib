@@ -11,7 +11,7 @@ namespace NikiConnectAPI.Lib.Api
     public static class DataFetcher
     {
         public static async Task<DataResponse<T>> Get<T>(string url, Header header,
-            long? limit = null) where T : class
+            long? limit = null, bool addSlug = true) where T : class
         {
             Exception exception = null;
 
@@ -34,7 +34,7 @@ namespace NikiConnectAPI.Lib.Api
                     : typeof(T).Name.ToLower(); // fallback to the type name in lowercase
 
                 var res = await Utilities.HttpUtility.EXECUTEAsync<DataResult<T>, DataResultError>(url,
-                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}&{App._FieldSlug}={entityName}", App._ApiGet,
+                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}&{$"{(addSlug ? $"&{App._FieldSlug}={entityName}" : string.Empty)}"}", App._ApiGet,
                     string.Empty,
                     headers, string.Empty, App._ContentType, 999999999);
 

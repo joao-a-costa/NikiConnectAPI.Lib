@@ -5,7 +5,7 @@ namespace NikiConnectAPI.Lib.Converters
 {
     public class SafeDateTimeConverter : JsonConverter<DateTime?>
     {
-        private readonly string[] _formats = { "MM/dd/yyyy HH:mm:ss" };
+        private readonly string[] _formats = { "MM/dd/yyyy HH:mm:ss", "dd-MM-yyyy HH:mm:ss" };
         private readonly IFormatProvider _formatProvider = System.Globalization.CultureInfo.InvariantCulture;
 
         public override void WriteJson(JsonWriter writer, DateTime? value, JsonSerializer serializer)

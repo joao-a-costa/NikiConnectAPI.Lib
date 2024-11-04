@@ -247,14 +247,14 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         [JsonProperty("created_by")]
         public int CreatedBy { get; set; }
 
-        [JsonProperty("updated_by")]
-        public object UpdatedBy { get; set; }
+        //[JsonProperty("updated_by")]
+        //public object UpdatedBy { get; set; }
 
-        [JsonProperty("deleted_by")]
-        public object DeletedBy { get; set; }
+        //[JsonProperty("deleted_by")]
+        //public object DeletedBy { get; set; }
 
-        [JsonProperty("closed_by")]
-        public object ClosedBy { get; set; }
+        //[JsonProperty("closed_by")]
+        //public object ClosedBy { get; set; }
 
         //[JsonProperty("deleted_at")]
         //public DateTime? DeletedAt { get; set; }

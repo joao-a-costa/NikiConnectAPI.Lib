@@ -23,84 +23,84 @@ namespace NikiConnectAPI.Test.Api.SyncModels
         [TestMethod()]
         public async Task GetAddresses()
         {
-            var res = await GetDataAsync<Address>();
+            var res = await GetDataModelsAsync<Address>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetBanks()
         {
-            var res = await GetDataAsync<Bank>();
+            var res = await GetDataModelsAsync<Bank>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetContacts()
         {
-            var res = await GetDataAsync<Contact>();
+            var res = await GetDataModelsAsync<Contact>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetDocuments()
         {
-            var res = await GetDataAsync<Document>();
+            var res = await GetDataModelsAsync<Document>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetDocumentHeaders()
         {
-            var res = await GetDataAsync<DocumentHeader>();
+            var res = await GetDataModelsAsync<DocumentHeader>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetDocumentDetails()
         {
-            var res = await GetDataAsync<DocumentDetail>();
+            var res = await GetDataModelsAsync<DocumentDetail>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetEntities()
         {
-            var res = await GetDataAsync<Entity>();
+            var res = await GetDataModelsAsync<Entity>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetEntityAccounts()
         {
-            var res = await GetDataAsync<EntityAccount>();
+            var res = await GetDataModelsAsync<EntityAccount>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetEntityBankAccounts()
         {
-            var res = await GetDataAsync<EntityBankAccount>();
+            var res = await GetDataModelsAsync<EntityBankAccount>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetItemBarcodeTypes()
         {
-            var res = await GetDataAsync<ItemBarcodeType>();
+            var res = await GetDataModelsAsync<ItemBarcodeType>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetItemDescriptions()
         {
-            var res = await GetDataAsync<ItemDescription>();
+            var res = await GetDataModelsAsync<ItemDescription>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
         [TestMethod()]
         public async Task GetItemFamilies()
         {
-            var res = await GetDataAsync<ItemFamily>();
+            var res = await GetDataModelsAsync<ItemFamily>();
             Assert.IsTrue(res?.DataResult != null);
         }
 
