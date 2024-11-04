@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using NikiConnectAPI.Lib.Models.Flyers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace NikiConnectAPI.Test.Api.Flyers
 {
@@ -25,6 +25,21 @@ namespace NikiConnectAPI.Test.Api.Flyers
         public async Task Flyers()
         {
             var res = await GetDataFlyersAsync<Flyer>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task FlyersByID()
+        {
+            var res = await GetDataFlyersAsync<Flyer>();
+
+            if (res?.DataResult != null)
+            {
+                var randomIndex = new Random().Next(0, res.DataResult.Data.Count);
+                var resByID = await GetDataFlyersByIDAsync<Flyer>(res.DataResult.Data[randomIndex]?.Id.ToString());
+                Assert.IsTrue(resByID?.DataResult != null);
+            }
+
             Assert.IsTrue(res?.DataResult != null);
         }
 
