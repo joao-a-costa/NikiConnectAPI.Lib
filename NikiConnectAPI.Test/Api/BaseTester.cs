@@ -303,6 +303,17 @@ namespace NikiConnectAPI.Test.Api
             return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}/{id}", null, false);
         }
 
+        protected static async Task<DataResponse<T>> GetDataFlyersByDateAsync<T>(DateTime? startAt, DateTime? finishAt) where T : class
+        {
+            var app = new App();
+
+            var startAtString = startAt.HasValue ? startAt.Value.ToString("yyyy-MM-dd") : string.Empty;
+            var finishAtString = finishAt.HasValue ? finishAt.Value.ToString("yyyy-MM-dd") : string.Empty;
+
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}?" +
+                $"start_at={startAtString}&finish_at={finishAtString}", null, false);
+        }
+
         #endregion
 
         protected static async Task PatchEntity<T>() where T : class, IBaseModel
