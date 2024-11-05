@@ -40,11 +40,22 @@ namespace NikiConnectAPI.Lib.Api
                     string.Empty,
                     headers, string.Empty, App._ContentType, 999999999);
 
-                return new DataResponse<T>
+                var dataResponse = new DataResponse<T>
                 {
                     DataResult = res.Item2,
                     Error = res.Item3
                 };
+
+                if (res.Item2 == null && res.Item3 == null && dataResponse.Error == null &&
+                    !string.IsNullOrEmpty(res.Item4) && !string.IsNullOrEmpty(res.Item5))
+                {
+                    dataResponse.Error = new DataResultError
+                    {
+                        Message = res.Item5
+                    };
+                }
+
+                return dataResponse;
             }
             catch(Exception ex)
             {
@@ -87,11 +98,22 @@ namespace NikiConnectAPI.Lib.Api
                     string.Empty,
                     headers, string.Empty, App._ContentType, 999999999);
 
-                return new DataResponseByID<T>
+                var dataResponse = new DataResponseByID<T>
                 {
                     DataResult = res.Item2,
                     Error = res.Item3
                 };
+
+                if (res.Item2 == null && res.Item3 == null && dataResponse.Error == null &&
+                    !string.IsNullOrEmpty(res.Item4) && !string.IsNullOrEmpty(res.Item5))
+                {
+                    dataResponse.Error = new DataResultError
+                    {
+                        Message = res.Item5
+                    };
+                }
+
+                return dataResponse;
             }
             catch (Exception ex)
             {
@@ -134,11 +156,22 @@ namespace NikiConnectAPI.Lib.Api
                     headers, string.Empty, App._ContentType, 999999999, System.Net.SecurityProtocolType.Tls12, App._Accept,
                     Enums.RequestFormat.FormData);
 
-                return new DataResponse<T>
+                var dataResponse = new DataResponse<T>
                 {
                     DataResult = res.Item2,
                     Error = res.Item3
                 };
+
+                if (res.Item2 == null && res.Item3 == null && dataResponse.Error == null &&
+                    !string.IsNullOrEmpty(res.Item4) && !string.IsNullOrEmpty(res.Item5))
+                {
+                    dataResponse.Error = new DataResultError
+                    {
+                        Message = res.Item5
+                    };
+                }
+
+                return dataResponse;
             }
             catch (Exception ex)
             {
