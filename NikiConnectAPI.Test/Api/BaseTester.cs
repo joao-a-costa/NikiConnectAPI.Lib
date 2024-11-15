@@ -249,12 +249,13 @@ namespace NikiConnectAPI.Test.Api
 
         #region "Get"
 
-        protected static async Task<DataResponse<T>> GetDataAsync<T>(string url, long? limit = null, bool addSlug = true) where T : class
+        protected static async Task<DataResponse<T>> GetDataAsync<T>(string url, bool addSlug = true,
+            Dictionary<string, string> additionalParams = null) where T : class
         {
             if (Header == null) return null;
             var res = await Lib.Api.DataFetcher.Get<T>(url,
                 Header,
-                limit, addSlug);
+                addSlug, additionalParams);
 
             if (res?.Exception != null)
                 Assert.Fail(res.Exception.Message);
@@ -279,7 +280,12 @@ namespace NikiConnectAPI.Test.Api
         {
             var app = new App();
 
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}", app.Limit);
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGet}",
+                additionalParams: new Dictionary<string, string>()
+                {
+                    { "limit", $"{app.Limit}" }
+                }
+            );
         }
 
         protected static async Task<DataResponseByID<T>> GetDataModelsByIDAsync<T>(string id) where T : class
@@ -289,11 +295,20 @@ namespace NikiConnectAPI.Test.Api
             return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGetByID}/{id}", app.Limit);
         }
 
+        protected static async Task<DataResponseByID<T>> GetDataModelsByFieldsAsync<T>(string id) where T : class
+        {
+            var app = new App();
+
+            return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlRemoteApiClientGetByID}/{id}", app.Limit);
+        }
+
+        #region "Flyers"
+
         protected static async Task<DataResponse<T>> GetDataFlyersAsync<T>() where T : class
         {
             var app = new App();
 
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}", null, false);
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}", addSlug: false);
         }
 
         protected static async Task<DataResponseByID<T>> GetDataFlyersByIDAsync<T>(string id) where T : class
@@ -311,8 +326,10 @@ namespace NikiConnectAPI.Test.Api
             var finishAtString = finishAt.HasValue ? finishAt.Value.ToString("yyyy-MM-dd") : string.Empty;
 
             return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}?" +
-                $"start_at={startAtString}&finish_at={finishAtString}", null, false);
+                $"start_at={startAtString}&finish_at={finishAtString}", addSlug: false);
         }
+
+        #endregion
 
         #endregion
 

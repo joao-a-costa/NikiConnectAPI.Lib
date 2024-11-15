@@ -104,6 +104,55 @@ namespace NikiConnectAPI.Test.Api.SyncModels
             Assert.IsTrue(res?.DataResult != null);
         }
 
+        [TestMethod()]
+        public async Task GetItemFamilyRates()
+        {
+            var res = await GetDataModelsAsync<ItemFamilyRate>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItemPrices()
+        {
+            var res = await GetDataModelsAsync<ItemPrice>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItemPriceLines()
+        {
+            var res = await GetDataModelsAsync<ItemPriceLine>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItemStocks()
+        {
+            var res = await GetDataModelsAsync<ItemStock>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItemTypes()
+        {
+            var res = await GetDataModelsAsync<ItemType>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetUnits()
+        {
+            var res = await GetDataModelsAsync<Unit>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetItems()
+        {
+            var res = await GetDataModelsAsync<Item>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
         #endregion
     }
 }

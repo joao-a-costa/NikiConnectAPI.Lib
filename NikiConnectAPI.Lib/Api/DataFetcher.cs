@@ -3,15 +3,16 @@ using System.Linq;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using NikiConnectAPI.Lib.Models.Data;
-using System.Data;
 using NikiConnectAPI.Lib.Models.Auth;
+using System.Collections.Generic;
 
 namespace NikiConnectAPI.Lib.Api
 {
     public static class DataFetcher
     {
         public static async Task<DataResponse<T>> Get<T>(string url, Header header,
-            long? limit = null, bool addSlug = true) where T : class
+            bool addSlug = true,
+            Dictionary<string, string> additionalParams = null) where T : class
         {
             Exception exception = null;
 
@@ -35,8 +36,27 @@ namespace NikiConnectAPI.Lib.Api
                         ? displayName.DisplayName
                         : typeof(T).Name.ToLower(); // fallback to the type name in lowercase
 
+                // Build the query string
+                var queryParams = new Dictionary<string, string>();
+
+                if (addSlug)
+                    queryParams.Add(App._FieldSlug, entityName);
+
+                // Add additional parameters if provided
+                if (additionalParams != null)
+                {
+                    foreach (var param in additionalParams)
+                    {
+                        queryParams[param.Key] = param.Value;
+                    }
+                }
+
+                var queryString = string.Join("&", queryParams
+                    .Where(kvp => !string.IsNullOrEmpty(kvp.Value)) // Exclude null or empty values
+                    .Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"));
+
                 var res = await Utilities.HttpUtility.EXECUTEAsync<DataResult<T>, DataResultError>(url,
-                    $"{(limit.HasValue ? $"limit={limit}" : string.Empty)}{$"{(addSlug ? $"&{App._FieldSlug}={entityName}" : string.Empty)}"}", App._ApiGet,
+                    queryString, App._ApiGet,
                     string.Empty,
                     headers, string.Empty, App._ContentType, 999999999);
 
@@ -57,7 +77,7 @@ namespace NikiConnectAPI.Lib.Api
 
                 return dataResponse;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 exception = ex;
             }
@@ -67,6 +87,7 @@ namespace NikiConnectAPI.Lib.Api
                 Exception = exception
             };
         }
+
 
         public static async Task<DataResponseByID<T>> GetByID<T>(string url, Header header,
             long? limit = null, bool addSlug = true) where T : class
