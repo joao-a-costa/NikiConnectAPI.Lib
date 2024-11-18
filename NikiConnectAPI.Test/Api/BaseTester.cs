@@ -308,14 +308,14 @@ namespace NikiConnectAPI.Test.Api
         {
             var app = new App();
 
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}", addSlug: false);
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}{app.UrlFlyersInclude}", addSlug: false);
         }
 
         protected static async Task<DataResponseByID<T>> GetDataFlyersByIDAsync<T>(string id) where T : class
         {
             var app = new App();
 
-            return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}/{id}", null, false);
+            return await GetDataByIDAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}/{id}{app.UrlFlyersInclude}", null, false);
         }
 
         protected static async Task<DataResponse<T>> GetDataFlyersByDateAsync<T>(DateTime? startAt, DateTime? finishAt) where T : class
@@ -325,7 +325,7 @@ namespace NikiConnectAPI.Test.Api
             var startAtString = startAt.HasValue ? startAt.Value.ToString("yyyy-MM-dd") : string.Empty;
             var finishAtString = finishAt.HasValue ? finishAt.Value.ToString("yyyy-MM-dd") : string.Empty;
 
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}?" +
+            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}{app.UrlFlyersInclude}&" +
                 $"start_at={startAtString}&finish_at={finishAtString}", addSlug: false);
         }
 
