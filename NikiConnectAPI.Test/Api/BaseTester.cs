@@ -322,11 +322,21 @@ namespace NikiConnectAPI.Test.Api
         {
             var app = new App();
 
-            var startAtString = startAt.HasValue ? startAt.Value.ToString("yyyy-MM-dd") : string.Empty;
-            var finishAtString = finishAt.HasValue ? finishAt.Value.ToString("yyyy-MM-dd") : string.Empty;
+            var queryParameters = new List<string>();
+            if (startAt.HasValue)
+                queryParameters.Add($"start_at={startAt.Value:yyyy-MM-dd}");
+            if (finishAt.HasValue)
+                queryParameters.Add($"finish_at={finishAt.Value:yyyy-MM-dd}");
 
-            return await GetDataAsync<T>($"{app.Url}{app.UrlVersion}{app.UrlFlyers}{app.UrlFlyersInclude}&" +
-                $"start_at={startAtString}&finish_at={finishAtString}", addSlug: false);
+            // Combine query parameters into a single query string
+            var queryString = string.Join("&", queryParameters);
+
+            // Construct the final URL
+            var url = $"{app.Url}{app.UrlVersion}{app.UrlFlyers}{app.UrlFlyersInclude}";
+            if (!string.IsNullOrEmpty(queryString))
+                url += $"&{queryString}";
+
+            return await GetDataAsync<T>(url, false);
         }
 
         #endregion
