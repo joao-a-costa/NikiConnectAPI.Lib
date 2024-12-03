@@ -53,5 +53,7 @@ namespace NikiConnectAPI.Lib.Models.Flyers
 
         [JsonProperty("flyerItems")]
         public FlyerItem FlyerItems { get; set; }
+        [JsonProperty("attachments")]
+        public FlyerAttachments FlyerAttachments { get; set; }
     }
 }
