@@ -148,7 +148,7 @@ namespace NikiConnectAPI.Lib.Api
         }
 
         public static async Task<DataResponse<T>> Post<T>(string url, Header header, object body,
-            long limit = 9223372036854775807) where T : class
+            long limit = 9223372036854775807, bool addSlug = true) where T : class
         {
             Exception exception = null;
 
@@ -172,7 +172,7 @@ namespace NikiConnectAPI.Lib.Api
 
                 var res = await Utilities.HttpUtility.EXECUTEAsync<DataResult<T>,
                     DataResultError>(url,
-                    $"{App._FieldSlug}={entityName}", App._ApiPost,
+                    addSlug ? $"{App._FieldSlug}={entityName}" : string.Empty, App._ApiPost,
                     body,
                     headers, string.Empty, App._ContentType, 999999999, System.Net.SecurityProtocolType.Tls12, App._Accept,
                     Enums.RequestFormat.FormData);
