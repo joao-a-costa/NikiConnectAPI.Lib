@@ -11,7 +11,8 @@ namespace NikiConnectAPI.Lib.Helpers
         public static Dictionary<string, string> ToDictionary<T>(T obj,
             List<string> listFieldsNotToInclude = null,
             List<string> listFieldsToInclude = null,
-            int index = 0)
+            int index = 0,
+            string keyName = "list")
         {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
@@ -47,11 +48,11 @@ namespace NikiConnectAPI.Lib.Helpers
                 {
                     if (property.PropertyType == typeof(DateTime))
                     {
-                        dictionary.Add($"list[{index}][{key}]", Convert.ToDateTime(value).ToString(App._DateTimeFormat) ?? string.Empty);
+                        dictionary.Add($"{keyName}[{index}][{key}]", Convert.ToDateTime(value).ToString(App._DateTimeFormat) ?? string.Empty);
                     }
                     else
                     {
-                        dictionary.Add($"list[{index}][{key}]", string.IsNullOrEmpty(value.ToString()) ? $"\"\"" : value.ToString());
+                        dictionary.Add($"{keyName}[{index}][{key}]", string.IsNullOrEmpty(value.ToString()) ? $"\"\"" : value.ToString());
                     }
                 }
             }
