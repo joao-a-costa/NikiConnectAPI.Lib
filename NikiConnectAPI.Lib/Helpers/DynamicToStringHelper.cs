@@ -12,7 +12,8 @@ namespace NikiConnectAPI.Lib.Helpers
             List<string> listFieldsNotToInclude = null,
             List<string> listFieldsToInclude = null,
             int index = 0,
-            string keyName = "list")
+            string keyName = "list",
+            bool addSlug = true)
         {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
@@ -23,7 +24,8 @@ namespace NikiConnectAPI.Lib.Helpers
             string slugValue = displayNameAttribute != null ? displayNameAttribute.DisplayName : type.Name.ToLower();
 
             // Add slug key-value pair to the dictionary
-            dictionary.Add(App._FieldSlug, slugValue);
+            if (addSlug)
+                dictionary.Add(App._FieldSlug, slugValue);
 
             // Iterate over all properties and construct key-value pairs
             foreach (PropertyInfo property in properties)
