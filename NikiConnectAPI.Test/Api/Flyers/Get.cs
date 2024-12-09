@@ -47,7 +47,7 @@ namespace NikiConnectAPI.Test.Api.Flyers
         [TestMethod()]
         public async Task FlyersByIDFixed()
         {
-            var resByID = await GetDataFlyersByIDAsync<Flyer>("2");
+            var resByID = await GetDataFlyersByIDAsync<Flyer>("1");
             Assert.IsTrue(resByID?.DataResult != null);
         }
 

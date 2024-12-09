@@ -173,7 +173,10 @@ namespace NikiConnectAPI.Lib.Utilities
                 SuccessObject = JsonConvert.DeserializeObject<T>(result, new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    Converters = new List<JsonConverter> { new SafeDateTimeConverter() }
+                    Converters = new List<JsonConverter> {
+                        new SafeDateTimeConverter(),
+                        new FlyerAttachmentDetailUrlConverter()
+                    }
                 });
             }
 
