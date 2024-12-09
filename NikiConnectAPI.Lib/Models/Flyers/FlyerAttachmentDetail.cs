@@ -5,26 +5,67 @@ namespace NikiConnectAPI.Lib.Models.Flyers
 {
     public class FlyerAttachmentDetail
     {
-        public string @object { get; set; }
-        public int id { get; set; }
-        public int attachable_id { get; set; }
-        public string attachable_type { get; set; }
-        public string original_name { get; set; }
-        public string name { get; set; }
-        public int favorite { get; set; }
-        public List<object> tags { get; set; }
-        public bool @public { get; set; }
-        public bool image { get; set; }
-        public bool video { get; set; }
-        public FlyerAttachmentDetailUrl url { get; set; }
-        public string mime { get; set; }
-        public object meta_data { get; set; }
-        public string extension { get; set; }
-        public int size { get; set; }
-        public int created_by { get; set; }
-        public int updated_by { get; set; }
-        public string created_at { get; set; }
-        public string updated_at { get; set; }
-        public string awsImageUrl { get; set; }
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("attachable_id")]
+        public int AttachableId { get; set; }
+
+        [JsonProperty("attachable_type")]
+        public string AttachableType { get; set; }
+
+        [JsonProperty("original_name")]
+        public string OriginalName { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("favorite")]
+        public int Favorite { get; set; }
+
+        [JsonProperty("tags")]
+        public List<object> Tags { get; set; }
+
+        [JsonProperty("public")]
+        public bool Public { get; set; }
+
+        [JsonProperty("image")]
+        public bool Image { get; set; }
+
+        [JsonProperty("video")]
+        public bool Video { get; set; }
+
+        [JsonProperty("url")]
+        public FlyerAttachmentDetailUrl Url { get; set; }
+
+        [JsonProperty("mime")]
+        public string Mime { get; set; }
+
+        [JsonProperty("meta_data")]
+        public object MetaData { get; set; }
+
+        [JsonProperty("extension")]
+        public string Extension { get; set; }
+
+        [JsonProperty("size")]
+        public int Size { get; set; }
+
+        //[JsonProperty("created_by")]
+        //public int CreatedBy { get; set; }
+
+        //[JsonProperty("updated_by")]
+        //public int UpdatedBy { get; set; }
+
+        //[JsonProperty("created_at")]
+        //public string CreatedAt { get; set; }
+
+        //[JsonProperty("updated_at")]
+        //public string UpdatedAt { get; set; }
+
+        [JsonProperty("awsImageUrl")]
+        public string AwsImageUrl { get; set; }
     }
 }

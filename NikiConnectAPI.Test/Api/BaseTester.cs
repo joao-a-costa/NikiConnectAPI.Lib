@@ -53,15 +53,15 @@ namespace NikiConnectAPI.Test.Api
             var app = new App();
             Token token = null;
 
-            // Try to read the token and expiration time from the file
-            if (File.Exists(tokenFilePath))
-            {
-                token = JsonConvert.DeserializeObject<Token>(File.ReadAllText(tokenFilePath));
+            //// Try to read the token and expiration time from the file
+            //if (File.Exists(tokenFilePath))
+            //{
+            //    token = JsonConvert.DeserializeObject<Token>(File.ReadAllText(tokenFilePath));
 
-                // Check if the token is still valid
-                if (token != null && DateTime.UtcNow < token.ExpireDate)
-                    accessToken = token.AccessToken;
-            }
+            //    // Check if the token is still valid
+            //    if (token != null && DateTime.UtcNow < token.ExpireDate)
+            //        accessToken = token.AccessToken;
+            //}
 
             if (string.IsNullOrEmpty(accessToken))
             {

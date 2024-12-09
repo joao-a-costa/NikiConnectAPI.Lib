@@ -1,13 +1,19 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace NikiConnectAPI.Lib.Models.Flyers
 {
     public class FlyerAttachmentDetailUrl
     {
-        public string original { get; set; }
-        public string large { get; set; }
-        public string medium { get; set; }
-        public string thumb { get; set; }
+        [JsonProperty("original")]
+        public string Original { get; set; }
+
+        [JsonProperty("large")]
+        public string Large { get; set; }
+
+        [JsonProperty("medium")]
+        public string Medium { get; set; }
+
+        [JsonProperty("thumb")]
+        public string Thumb { get; set; }
     }
 }
