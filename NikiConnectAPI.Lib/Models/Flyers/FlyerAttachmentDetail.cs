@@ -29,7 +29,7 @@ namespace NikiConnectAPI.Lib.Models.Flyers
         [JsonProperty("tags")]
         public List<object> Tags { get; set; }
 
-        [JsonProperty("public")]
+        [JsonProperty("is_public")]
         public bool Public { get; set; }
 
         [JsonProperty("image")]
