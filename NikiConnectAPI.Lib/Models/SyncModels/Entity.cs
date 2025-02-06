@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NikiConnectAPI.Lib.Attributes;
@@ -11,9 +11,6 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
     {
         [JsonProperty("id")]
         public int Id { get; set; }
-
-        [JsonProperty("company_id")]
-        public int CompanyId { get; set; }
 
         [JsonProperty("group_id")]
         public int GroupId { get; set; }
@@ -30,29 +27,46 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         [JsonProperty("matchcode")]
         public string Matchcode { get; set; }
 
-        [Editable(true)]
+        [JsonProperty("tax_ident_number")]
+        public object TaxIdentNumber { get; set; }
+
         [JsonProperty("reference")]
         public string Reference { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        //[JsonProperty("updated_at")]
-        //public DateTime? UpdatedAt { get; set; }
+        [JsonProperty("updated_at")]
+        public DateTime UpdatedAt { get; set; }
 
-        //[JsonProperty("deleted_at")]
-        //public DateTime? DeletedAt { get; set; }
+        [JsonProperty("deleted_at")]
+        public object DeletedAt { get; set; }
 
         [JsonProperty("created_by")]
         public int CreatedBy { get; set; }
 
-        //[JsonProperty("updated_by")]
-        //public int? UpdatedBy { get; set; }
+        [JsonProperty("updated_by")]
+        public object UpdatedBy { get; set; }
 
-        //[JsonProperty("deleted_by")]
-        //public object DeletedBy { get; set; }
+        [JsonProperty("deleted_by")]
+        public object DeletedBy { get; set; }
 
         [JsonProperty("module_comments")]
         public object ModuleComments { get; set; }
+
+        [JsonProperty("group")]
+        public Group Group { get; set; }
+
+        [JsonProperty("status")]
+        public Status Status { get; set; }
+
+        [JsonProperty("tags")]
+        public List<object> Tags { get; set; }
+
+        [JsonProperty("types")]
+        public List<Type> Types { get; set; }
+
+        [JsonProperty("contact")]
+        public object Contact { get; set; }
     }
 }

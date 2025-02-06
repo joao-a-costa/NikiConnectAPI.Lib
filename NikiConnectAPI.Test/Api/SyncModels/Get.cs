@@ -51,7 +51,18 @@ namespace NikiConnectAPI.Test.Api.SyncModels
         [TestMethod()]
         public async Task GetDocumentHeaders()
         {
-            var res = await GetDataModelsAsync<DocumentHeader>();
+            var res = await GetDataDocumentHeadersAsync<DocumentHeader>();
+            Assert.IsTrue(res?.DataResult != null);
+        }
+
+        [TestMethod()]
+        public async Task GetDocumentHeadersWithParameters()
+        {
+            var res = await GetDataDocumentHeadersAsync<DocumentHeader>(statusId: 1, typeId: 2,
+                aditionalObjects: new System.Collections.Generic.List<string>
+                {
+                    "entity"
+                });
             Assert.IsTrue(res?.DataResult != null);
         }
 
