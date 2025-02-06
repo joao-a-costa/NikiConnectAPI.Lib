@@ -17,6 +17,8 @@ namespace NikiConnectAPI.Test
         public string UrlRemoteApiClientPost { get; set; }
         public string UrlFlyers { get; set; }
         public string UrlFlyersInclude { get; set; }
+        public string UrlDocumentHeaders { get; set; }
+        public string UrlDocumentHeadersInclude { get; set; }
         public string UrlUserAgent { get; set; }
         public string ClientID { get; set; }
         public string ClientSecret { get; set; }
@@ -45,6 +47,8 @@ namespace NikiConnectAPI.Test
             UrlRemoteApiClientPost = ConfigurationManager.AppSettings["UrlRemoteApiClientPost"] ?? string.Empty;
             UrlFlyers = ConfigurationManager.AppSettings["UrlFlyers"] ?? string.Empty;
             UrlFlyersInclude = ConfigurationManager.AppSettings["UrlFlyersInclude"] ?? string.Empty;
+            UrlDocumentHeaders = ConfigurationManager.AppSettings["UrlDocumentHeaders"] ?? string.Empty;
+            UrlDocumentHeadersInclude = ConfigurationManager.AppSettings["UrlDocumentHeadersInclude"] ?? string.Empty;
             UrlUserAgent = ConfigurationManager.AppSettings["UrlUserAgent"] ?? string.Empty;
             ClientID = ConfigurationManager.AppSettings["ClientID"] ?? string.Empty;
             ClientSecret = ConfigurationManager.AppSettings["ClientSecret"] ?? string.Empty;

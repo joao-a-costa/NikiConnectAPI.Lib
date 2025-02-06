@@ -270,5 +270,8 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
 
         [JsonProperty("external_id")]
         public object ExternalId { get; set; }
+
+        [JsonProperty("entity")]
+        public Entity Entity { get; set; }
     }
 }

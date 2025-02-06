@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -333,6 +334,36 @@ namespace NikiConnectAPI.Test.Api
 
             // Construct the final URL
             var url = $"{app.Url}{app.UrlVersion}{app.UrlFlyers}{app.UrlFlyersInclude}";
+            if (!string.IsNullOrEmpty(queryString))
+                url += $"&{queryString}";
+
+            return await GetDataAsync<T>(url, false);
+        }
+
+        #endregion
+
+        #region "DocumentHeaders"
+
+        protected static async Task<DataResponse<T>> GetDataDocumentHeadersAsync<T>(int statusId = -1, int typeId = -1,
+            List<string> aditionalObjects = null) where T : class
+        {
+            var app = new App();
+
+            var queryParameters = new List<string>();
+
+            if (statusId > -1)
+                queryParameters.Add($"status_id[]={statusId}");
+            if (typeId > -1)
+                queryParameters.Add($"type_id[]={typeId}");
+
+            if (aditionalObjects != null && aditionalObjects.Count > 0)
+                queryParameters.Add($"with[]={string.Join(",", aditionalObjects)}");
+
+            // Combine query parameters into a single query string
+            var queryString = string.Join("&", queryParameters);
+
+            // Construct the final URL
+            var url = $"{app.Url}{app.UrlVersion}{app.UrlDocumentHeaders}{app.UrlDocumentHeadersInclude}";
             if (!string.IsNullOrEmpty(queryString))
                 url += $"&{queryString}";
 
