@@ -273,5 +273,8 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
 
         [JsonProperty("entity")]
         public Entity Entity { get; set; }
+
+        [JsonProperty("details")]
+        public List<DocumentDetail> Details { get; set; }
     }
 }

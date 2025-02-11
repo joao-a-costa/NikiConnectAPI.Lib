@@ -113,6 +113,6 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int ExternalAccountId { get; set; }
 
         [JsonProperty("documentDetails")]
-        public List<DocumentDocumentDetail> DocumentDetails { get; set; }
+        public List<DocumentDetail> DocumentDetails { get; set; }
     }
 }
