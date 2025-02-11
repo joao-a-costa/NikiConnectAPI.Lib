@@ -107,25 +107,25 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int TaxId { get; set; }
 
         [JsonProperty("tax_percentage")]
-        public int TaxPercentage { get; set; }
+        public double TaxPercentage { get; set; }
 
         [JsonProperty("tax_amount")]
         public double TaxAmount { get; set; }
 
         [JsonProperty("discount_percentage")]
-        public int DiscountPercentage { get; set; }
+        public double DiscountPercentage { get; set; }
 
         [JsonProperty("discount_amount")]
-        public int DiscountAmount { get; set; }
+        public double DiscountAmount { get; set; }
 
         [JsonProperty("total_gross_amount")]
         public double TotalGrossAmount { get; set; }
 
         [JsonProperty("total_net_discount")]
-        public int TotalNetDiscount { get; set; }
+        public double TotalNetDiscount { get; set; }
 
         [JsonProperty("transaction_total_net_discount")]
-        public int TransactionTotalNetDiscount { get; set; }
+        public double TransactionTotalNetDiscount { get; set; }
 
         [JsonProperty("total_net_amount")]
         public double TotalNetAmount { get; set; }
@@ -134,10 +134,10 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public double TotalTaxAmount { get; set; }
 
         [JsonProperty("total_additional_tax_amount")]
-        public int TotalAdditionalTaxAmount { get; set; }
+        public double TotalAdditionalTaxAmount { get; set; }
 
         [JsonProperty("total_additional_cost_amount")]
-        public int TotalAdditionalCostAmount { get; set; }
+        public double TotalAdditionalCostAmount { get; set; }
 
         [JsonProperty("total_tax_included_amount")]
         public double TotalTaxIncludedAmount { get; set; }

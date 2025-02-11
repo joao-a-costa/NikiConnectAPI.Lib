@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Remove="Interfaces\IBaseModelExternalId.cs" />
     <Compile Remove="Models\Flyers\PimItemDetail.cs" />
+    <Compile Remove="Models\SyncModels\DocumentDocumentDetail.cs" />
   </ItemGroup>
 
   <ItemGroup>
