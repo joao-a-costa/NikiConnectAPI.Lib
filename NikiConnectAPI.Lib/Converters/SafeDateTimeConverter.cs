@@ -8,6 +8,7 @@ namespace NikiConnectAPI.Lib.Converters
         private readonly string[] _formats = {
             "MM/dd/yyyy HH:mm:ss",
             "dd-MM-yyyy HH:mm:ss",
+            "dd/MM/yyyy HH:mm:ss",
             "MM/dd/yyyy",
             "dd-MM-yyyy"
         };
