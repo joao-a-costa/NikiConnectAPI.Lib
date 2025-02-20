@@ -107,7 +107,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public double TotalGrossAmount { get; set; }
 
         [JsonProperty("total_line_discount_amount")]
-        public int TotalLineDiscountAmount { get; set; }
+        public double TotalLineDiscountAmount { get; set; }
 
         [JsonProperty("discount_percent_1")]
         public int DiscountPercent1 { get; set; }
@@ -122,10 +122,10 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int DiscountPercent { get; set; }
 
         [JsonProperty("discount_amount")]
-        public int DiscountAmount { get; set; }
+        public double DiscountAmount { get; set; }
 
         [JsonProperty("total_net_discount")]
-        public int TotalNetDiscount { get; set; }
+        public double TotalNetDiscount { get; set; }
 
         [JsonProperty("total_net_amount")]
         public double TotalNetAmount { get; set; }
@@ -137,19 +137,19 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public double TotalTaxAmount { get; set; }
 
         [JsonProperty("total_additional_tax_amount")]
-        public int TotalAdditionalTaxAmount { get; set; }
+        public double TotalAdditionalTaxAmount { get; set; }
 
         [JsonProperty("total_additional_cost_amount")]
-        public int TotalAdditionalCostAmount { get; set; }
+        public double TotalAdditionalCostAmount { get; set; }
 
         [JsonProperty("total_tax_included_amount")]
         public double TotalTaxIncludedAmount { get; set; }
 
         [JsonProperty("round_amount")]
-        public int RoundAmount { get; set; }
+        public double RoundAmount { get; set; }
 
         [JsonProperty("total_retention_amount")]
-        public int TotalRetentionAmount { get; set; }
+        public double TotalRetentionAmount { get; set; }
 
         [JsonProperty("total_amount")]
         public double TotalAmount { get; set; }
