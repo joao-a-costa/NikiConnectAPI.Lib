@@ -119,7 +119,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public object DirectDebitBankAccountId { get; set; }
 
         [JsonProperty("credit_amount")]
-        public int CreditAmount { get; set; }
+        public double CreditAmount { get; set; }
 
         [JsonProperty("credit_overdue_days")]
         public int CreditOverdueDays { get; set; }
