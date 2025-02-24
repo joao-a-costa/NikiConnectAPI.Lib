@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using NikiConnectAPI.Lib.Attributes;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using NikiConnectAPI.Lib.Interfaces;
-using System;
 
 namespace NikiConnectAPI.Lib.Models.SyncModels
 {
@@ -12,7 +12,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public int Id { get; set; }
 
         [JsonProperty("pim_item_id")]
-        public int? PimItemId { get; set; }
+        public long? PimItemId { get; set; }
 
         [JsonProperty("company_id")]
         public int CompanyId { get; set; }
@@ -37,6 +37,9 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
 
         [JsonProperty("external_id")]
         public string ExternalId { get; set; }
+
+        [JsonProperty("brand_id")]
+        public object BrandId { get; set; }
 
         [JsonProperty("category_id")]
         public object CategoryId { get; set; }
@@ -130,6 +133,9 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
 
         [JsonProperty("module_comments")]
         public object ModuleComments { get; set; }
+
+        [JsonProperty("item_model_unit_barcodes")]
+        public List<ItemModelUnitBarcode> ItemModelUnitBarcodes { get; set; }
     }
 
     public class Properties

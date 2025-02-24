@@ -174,5 +174,8 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
 
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("item")]
+        public Item Item { get; set; }
     }
 }
