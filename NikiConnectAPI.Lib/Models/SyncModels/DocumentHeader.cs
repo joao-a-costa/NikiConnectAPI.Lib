@@ -239,7 +239,7 @@ namespace NikiConnectAPI.Lib.Models.SyncModels
         public DateTime DocumentDate { get; set; }
 
         [JsonProperty("sync")]
-        public int Sync { get; set; }
+        public string Sync { get; set; }
 
         [JsonProperty("transaction_closed")]
         public int TransactionClosed { get; set; }
