@@ -6,9 +6,9 @@ namespace NikiConnectAPI.Lib.Converters
     public class SafeDateTimeConverter : JsonConverter<DateTime?>
     {
         private readonly string[] _formats = {
+            "dd/MM/yyyy HH:mm:ss",
             "MM/dd/yyyy HH:mm:ss",
             "dd-MM-yyyy HH:mm:ss",
-            "dd/MM/yyyy HH:mm:ss",
             "MM/dd/yyyy",
             "dd-MM-yyyy"
         };
